@@ -3,9 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Node.js Package Manager - VS Code Extension</title>
+    <meta
+        name="description"
+        content="Node.js Package Manager is a VS Code extension for visual dependency management, security checks, and fast package updates."
+    >
+    <meta name="theme-color" content="#cb3837">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;500;700;800&display=swap"
+        rel="stylesheet"
+    >
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    
+    <div class="bg-mesh" aria-hidden="true"></div>
+
+    <header class="site-header">
+        <a class="brand" href="#top" aria-label="Node.js Package Manager home">
+            <img src="./resources/nodejs-package-manager.png" alt="Node.js Package Manager logo">
+            <span>Node.js Package Manager</span>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary navigation">
+            <a href="#features">Features</a>
+            <a href="#install">Install</a>
+            <a href="#open-source">Open Source</a>
+        </nav>
+
+        <a class="button ghost" href="https://github.com/mdtanvirahamedshanto/nodejs-package-manager" target="_blank" rel="noreferrer">
+            GitHub
+        </a>
+    </header>
+
+    <main id="top">
+        <section class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow">Visual Dependency Management for VS Code</p>
+                <h1>Ship Cleaner Node.js Projects With Less Friction</h1>
+                <p class="lead">
+                    Manage dependencies, inspect updates, run security checks, and install packages from one focused interface.
+                    Built for speed, clarity, and real project workflows.
+                </p>
+
+                <div class="badge-row" aria-label="Project badges">
+                    <img src="https://img.shields.io/visual-studio-marketplace/v/mdtanvirahamedshanto.nodejs-package-manager" alt="Marketplace version">
+                    <img src="https://img.shields.io/visual-studio-marketplace/d/mdtanvirahamedshanto.nodejs-package-manager" alt="Marketplace downloads">
+                    <img src="https://img.shields.io/open-vsx/v/mdtanvirahamedshanto/nodejs-package-manager" alt="Open VSX version">
+                    <img src="https://img.shields.io/github/license/mdtanvirahamedshanto/nodejs-package-manager" alt="License badge">
+                </div>
+
+                <div class="pill-row" aria-label="Highlights">
+                    <span class="pill">Monorepo Ready</span>
+                    <span class="pill">Audit Insights</span>
+                    <span class="pill">Bulk Updates</span>
+                    <span class="pill">8 Languages</span>
+                </div>
+
+                <div class="cta-row">
+                    <a class="button solid" href="https://marketplace.visualstudio.com/items?itemName=mdtanvirahamedshanto.nodejs-package-manager" target="_blank" rel="noreferrer">
+                        Install From Marketplace
+                    </a>
+                    <a class="button ghost" href="https://open-vsx.org/extension/mdtanvirahamedshanto/nodejs-package-manager" target="_blank" rel="noreferrer">
+                        Install From Open VSX
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-preview">
+                <img src="./screenshots/preview.gif" alt="Node.js Package Manager extension preview">
+            </div>
+        </section>
+
+        <section class="stats-strip" aria-label="Project statistics">
+            <article>
+                <strong>1.4.2</strong>
+                <span>Current Release</span>
+            </article>
+            <article>
+                <strong>VS Code + Open VSX</strong>
+                <span>Dual Distribution</span>
+            </article>
+            <article>
+                <strong>npm / yarn / pnpm / bun</strong>
+                <span>Package Manager Support</span>
+            </article>
+            <article>
+                <strong>Open Source</strong>
+                <span>MIT Licensed</span>
+            </article>
+        </section>
+
+        <section id="features" class="section">
+            <h2>Everything You Need In One Panel</h2>
+            <div class="feature-grid">
+                <article class="card">
+                    <span class="card-tag">Dashboard</span>
+                    <h3>Dependency Dashboard</h3>
+                    <p>Filter by production, development, and peer dependencies with quick version visibility.</p>
+                </article>
+                <article class="card">
+                    <span class="card-tag">Discover</span>
+                    <h3>Fast Search & Install</h3>
+                    <p>Search npm packages with debounced requests and install as dependency or devDependency.</p>
+                </article>
+                <article class="card">
+                    <span class="card-tag">Upgrade</span>
+                    <h3>Bulk Update Workflow</h3>
+                    <p>Update selected packages or all outdated packages with confidence and clear status feedback.</p>
+                </article>
+                <article class="card">
+                    <span class="card-tag">Security</span>
+                    <h3>Security Insights</h3>
+                    <p>Run audits, inspect vulnerabilities, and identify risky packages before deployment.</p>
+                </article>
+                <article class="card">
+                    <span class="card-tag">Workspace</span>
+                    <h3>Monorepo Friendly</h3>
+                    <p>Auto-detect projects in larger workspaces and switch context without leaving the extension.</p>
+                </article>
+                <article class="card">
+                    <span class="card-tag">Experience</span>
+                    <h3>Theme Aware UI</h3>
+                    <p>Designed for VS Code themes with a clean interface and focused, readable information density.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>From Dependency Sprawl To Controlled Releases</h2>
+            <div class="workflow-grid">
+                <article class="flow-card">
+                    <span>01</span>
+                    <h3>Inspect</h3>
+                    <p>See outdated, deprecated, and vulnerable packages in one glance.</p>
+                </article>
+                <article class="flow-card">
+                    <span>02</span>
+                    <h3>Decide</h3>
+                    <p>Use update type indicators and changelog links before applying changes.</p>
+                </article>
+                <article class="flow-card">
+                    <span>03</span>
+                    <h3>Ship</h3>
+                    <p>Update one package or many, then continue coding without context switching.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="install" class="section split">
+            <div>
+                <h2>Quick Install</h2>
+                <ol>
+                    <li>Open VS Code Extensions panel.</li>
+                    <li>Search for <strong>Node.js Package Manager</strong>.</li>
+                    <li>Install and run <strong>Open Node.js Package Manager</strong> from Command Palette.</li>
+                </ol>
+            </div>
+            <div class="install-links">
+                <a class="link-card" href="https://marketplace.visualstudio.com/items?itemName=mdtanvirahamedshanto.nodejs-package-manager" target="_blank" rel="noreferrer">
+                    <span>VS Code Marketplace</span>
+                    <small>Official distribution</small>
+                </a>
+                <a class="link-card" href="https://open-vsx.org/extension/mdtanvirahamedshanto/nodejs-package-manager" target="_blank" rel="noreferrer">
+                    <span>Open VSX</span>
+                    <small>Open ecosystem distribution</small>
+                </a>
+                <a class="link-card" href="https://github.com/mdtanvirahamedshanto/nodejs-package-manager" target="_blank" rel="noreferrer">
+                    <span>GitHub Repository</span>
+                    <small>Source code and issues</small>
+                </a>
+            </div>
+        </section>
+
+        <section id="open-source" class="section">
+            <h2>Built In Public</h2>
+            <p class="section-lead">
+                This extension is open source and actively maintained. Contributions, bug reports, and feature ideas are always welcome.
+            </p>
+            <div class="open-source-actions">
+                <a class="button solid" href="https://github.com/mdtanvirahamedshanto/nodejs-package-manager/issues" target="_blank" rel="noreferrer">
+                    Report Issue
+                </a>
+                <a class="button ghost" href="https://github.com/mdtanvirahamedshanto/nodejs-package-manager/blob/main/CONTRIBUTING.md" target="_blank" rel="noreferrer">
+                    Contributing Guide
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>© <span id="year"></span> Md Tanvir Ahamed Shanto. Released under MIT License.</p>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
