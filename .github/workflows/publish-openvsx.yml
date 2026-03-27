@@ -1,0 +1,43 @@
+name: Publish Open VSX
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  publish-openvsx:
+    name: Publish to Open VSX
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Install webview dependencies
+        working-directory: ./webview-ui
+        run: npm ci
+
+      - name: Build and package VSIX
+        run: npm run package:vsix
+
+      - name: Publish to Open VSX
+        env:
+          OVSX_TOKEN: ${{ secrets.OVSX_TOKEN }}
+        run: |
+          if [ -z "$OVSX_TOKEN" ]; then
+            echo "Missing OVSX_TOKEN secret. Add it in GitHub repo settings." >&2
+            exit 1
+          fi
+          VSIX_FILE="nodejs-package-manager-$(node -p "require('./package.json').version").vsix"
+          npx -y ovsx publish "$VSIX_FILE" -p "$OVSX_TOKEN"

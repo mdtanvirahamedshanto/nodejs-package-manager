@@ -1,8 +1,10 @@
 # Node.js Package Manager
 
+[![VS Code Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/mdtanvirahamedshanto.nodejs-package-manager)](https://marketplace.visualstudio.com/items?itemName=mdtanvirahamedshanto.nodejs-package-manager)
+[![VS Code Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/mdtanvirahamedshanto.nodejs-package-manager)](https://marketplace.visualstudio.com/items?itemName=mdtanvirahamedshanto.nodejs-package-manager)
 [![Open VSX Version](https://img.shields.io/open-vsx/v/mdtanvirahamedshanto/nodejs-package-manager)](https://open-vsx.org/extension/mdtanvirahamedshanto/nodejs-package-manager)
 [![Open VSX Downloads](https://img.shields.io/open-vsx/dt/mdtanvirahamedshanto/nodejs-package-manager)](https://open-vsx.org/extension/mdtanvirahamedshanto/nodejs-package-manager)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/mdtanvirahamedshanto/nodejs-package-manager/ci.yml?branch=main)](https://github.com/mdtanvirahamedshanto/nodejs-package-manager/actions)
+[![Build Status](https://github.com/mdtanvirahamedshanto/nodejs-package-manager/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/mdtanvirahamedshanto/nodejs-package-manager/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/mdtanvirahamedshanto/nodejs-package-manager)](LICENSE)
 
 Node.js Package Manager is a Visual Studio Code extension that provides a clean, visual workflow for managing project dependencies. It helps you inspect packages, install new ones, audit security, and apply updates from one place.
@@ -32,6 +34,8 @@ Node.js Package Manager is a Visual Studio Code extension that provides a clean,
 ## Installation
 
 Install from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=mdtanvirahamedshanto.nodejs-package-manager), or search for "Node.js Package Manager" in the Extensions view (`Ctrl+Shift+X`).
+
+Open VSX listing: [https://open-vsx.org/extension/mdtanvirahamedshanto/nodejs-package-manager](https://open-vsx.org/extension/mdtanvirahamedshanto/nodejs-package-manager)
 
 ## Getting Started
 

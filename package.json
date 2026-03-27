@@ -160,6 +160,8 @@
     "watch": "tsc -watch -p ./",
     "build:webview": "cd webview-ui && npm run build",
     "build:webview:dev": "cd webview-ui && npm run build:dev",
+    "package:vsix": "npx -y @vscode/vsce@2.24.0 package",
+    "publish:ovsx": "npm run package:vsix && npx -y ovsx publish nodejs-package-manager-$(node -p \"require('./package.json').version\").vsix -p \"$OVSX_TOKEN\"",
     "install:all": "npm install && cd webview-ui && npm install",
     "dev": "npm run build:webview:dev && npm run compile",
     "lint": "eslint src --ext ts",
