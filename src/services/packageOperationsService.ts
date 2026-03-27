@@ -434,7 +434,7 @@ export class PackageOperationsService {
       // Write back with proper formatting
       await fs.promises.writeFile(packageJsonPath, JSON.stringify(pkg, null, 2) + '\n');
     } catch (error) {
-      console.error('[npm-visual-manager] Failed to restore package.json versions:', error);
+      console.error('[nodejs-package-manager] Failed to restore package.json versions:', error);
       // Don't throw - the rollback technically succeeded, just package.json wasn't restored
     }
   }

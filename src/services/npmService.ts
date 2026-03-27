@@ -73,7 +73,7 @@ export async function getPackageInfo(packageName: string, forceRefresh: boolean 
       {
         headers: {
           Accept: 'application/json',
-          'User-Agent': 'npm-visual-manager-vscode-extension',
+          'User-Agent': 'nodejs-package-manager-vscode-extension',
         },
         timeout: 10000,
       },

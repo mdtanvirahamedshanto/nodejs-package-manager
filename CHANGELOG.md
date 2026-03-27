@@ -1,6 +1,6 @@
 # Change Log
 
-All notable changes to the "npm-visual-manager" extension will be documented in this file.
+All notable changes to the "nodejs-package-manager" extension will be documented in this file.
 
 ## [1.4.0] - 2026-03-25
 
@@ -120,7 +120,7 @@ All notable changes to the "npm-visual-manager" extension will be documented in 
 ## [0.8.0] - 2026-03-02
 
 ### Changed
-- **Cache Location**: Moved cache file from `.vscode/.npm-visual-manager-cache.json` to VS Code's global storage
+- **Cache Location**: Moved cache file from `.vscode/.nodejs-package-manager-cache.json` to VS Code's global storage
   - Cache is now stored in the extension's global storage directory (hidden from users)
   - No more clutter in project's `.vscode` folder
   - Cache files are named `cache-{projectHash}.json` and stored per project

@@ -57,7 +57,7 @@ export class NpmGuiManagerPanel {
       preferredProjectPath
     );
     if (projects.length === 0) {
-      vscode.window.showErrorMessage('npm-visual-manager: No package.json found in workspace');
+      vscode.window.showErrorMessage('nodejs-package-manager: No package.json found in workspace');
       return;
     }
 
@@ -523,7 +523,7 @@ export class NpmGuiManagerPanel {
    * Get column visibility configuration
    */
   private _getColumnConfig(): ColumnConfig {
-    const config = vscode.workspace.getConfiguration('npm-visual-manager.columns');
+    const config = vscode.workspace.getConfiguration('nodejs-package-manager.columns');
     return {
       size: config.get('size', true),
       type: config.get('type', true),

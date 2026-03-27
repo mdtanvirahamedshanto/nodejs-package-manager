@@ -11,7 +11,7 @@ export interface IgnoredPackage {
   pinnedVersion?: string;
 }
 
-const SECTION = 'npm-visual-manager';
+const SECTION = 'nodejs-package-manager';
 const SETTING_KEY = 'ignoredPackages';
 
 export class IgnoreService {

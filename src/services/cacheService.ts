@@ -24,7 +24,7 @@ interface CacheData {
 
 const CACHE_VERSION = '1.2'; // Bumped for repositoryUrl support
 const DEFAULT_TTL_HOURS = 24; // Cache valid for 24 hours
-const CACHE_FILENAME = '.npm-visual-manager-cache.json';
+const CACHE_FILENAME = '.nodejs-package-manager-cache.json';
 const MAX_ENTRIES = 500; // Maximum cache entries to prevent unlimited growth
 
 export class VersionCache {
@@ -70,7 +70,7 @@ export class VersionCache {
         }
       }
     } catch (error) {
-      console.warn('[npm-visual-manager] Failed to load cache:', error);
+      console.warn('[nodejs-package-manager] Failed to load cache:', error);
       this.cache = { version: CACHE_VERSION, entries: {} };
     }
   }
@@ -88,7 +88,7 @@ export class VersionCache {
 
       await fs.promises.writeFile(this.cachePath, JSON.stringify(this.cache, null, 2));
     } catch (error) {
-      console.warn('[npm-visual-manager] Failed to save cache:', error);
+      console.warn('[nodejs-package-manager] Failed to save cache:', error);
     }
   }
 

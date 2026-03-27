@@ -66,7 +66,7 @@ export function searchPackages(query: string, limit: number = 20, signal?: Abort
         headers: {
           Accept: 'application/json',
           // eslint-disable-next-line @typescript-eslint/naming-convention
-          'User-Agent': 'npm-visual-manager-vscode-extension',
+          'User-Agent': 'nodejs-package-manager-vscode-extension',
         },
         timeout: 10000,
       },

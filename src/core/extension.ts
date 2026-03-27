@@ -1,5 +1,5 @@
 /**
- * Main entry point for npm-visual-manager extension
+ * Main entry point for nodejs-package-manager extension
  */
 
 import * as vscode from 'vscode';
@@ -9,20 +9,20 @@ import { setGlobalStorageUri } from '../services/cacheService';
 import { NpmDependenciesProvider } from './sidebarProvider';
 
 export function activate(context: vscode.ExtensionContext): void {
-  console.log('npm-visual-manager extension is now active');
+  console.log('nodejs-package-manager extension is now active');
 
   // Set global storage URI for cache service
   setGlobalStorageUri(context.globalStorageUri);
 
   // Register the main command (opens in panel)
   const openManagerCommand = vscode.commands.registerCommand(
-    'npm-visual-manager.openManager',
+    'nodejs-package-manager.openManager',
     async (resource?: vscode.Uri) => {
       const workspaceFolders = vscode.workspace.workspaceFolders;
 
       if (!workspaceFolders || workspaceFolders.length === 0) {
         vscode.window.showErrorMessage(
-          'npm-visual-manager: No workspace folder is open. Please open a folder containing a package.json file.'
+          'nodejs-package-manager: No workspace folder is open. Please open a folder containing a package.json file.'
         );
         return;
       }
@@ -50,21 +50,21 @@ export function activate(context: vscode.ExtensionContext): void {
         );
       } catch (error) {
         vscode.window.showErrorMessage(
-          `npm-visual-manager: Failed to open manager - ${error instanceof Error ? error.message : String(error)}`
+          `nodejs-package-manager: Failed to open manager - ${error instanceof Error ? error.message : String(error)}`
         );
       }
     }
   );
 
   // Register refresh command
-  const refreshCommand = vscode.commands.registerCommand('npm-visual-manager.refresh', async () => {
+  const refreshCommand = vscode.commands.registerCommand('nodejs-package-manager.refresh', async () => {
     vscode.window.showInformationMessage('Refreshing dependencies...');
-    vscode.commands.executeCommand('npm-visual-manager.openManager');
+    vscode.commands.executeCommand('nodejs-package-manager.openManager');
   });
 
   // Register sidebar webview provider
   const sidebarProvider = new NpmDependenciesProvider();
-  const sidebarDisposable = vscode.window.registerWebviewViewProvider('npm-visual-manager.sidebar', sidebarProvider, {
+  const sidebarDisposable = vscode.window.registerWebviewViewProvider('nodejs-package-manager.sidebar', sidebarProvider, {
     webviewOptions: {
       retainContextWhenHidden: true,
     },
@@ -76,5 +76,5 @@ export function activate(context: vscode.ExtensionContext): void {
 }
 
 export function deactivate(): void {
-  console.log('npm-visual-manager extension is now deactivated');
+  console.log('nodejs-package-manager extension is now deactivated');
 }

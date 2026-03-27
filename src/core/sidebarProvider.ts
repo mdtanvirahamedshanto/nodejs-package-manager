@@ -1,5 +1,5 @@
 /**
- * Sidebar provider for npm-visual-manager
+ * Sidebar provider for nodejs-package-manager
  * Enhanced welcome view with quick actions and useful info
  */
 
@@ -11,7 +11,7 @@ import { getTranslations } from '../i18n';
 const EXTENSION_VERSION = '1.4.0';
 
 export class NpmDependenciesProvider implements vscode.WebviewViewProvider {
-  public static readonly viewType = 'npm-visual-manager.sidebar';
+  public static readonly viewType = 'nodejs-package-manager.sidebar';
 
   public resolveWebviewView(
     webviewView: vscode.WebviewView,
@@ -28,13 +28,13 @@ export class NpmDependenciesProvider implements vscode.WebviewViewProvider {
     webviewView.webview.onDidReceiveMessage(async message => {
       switch (message.type) {
         case 'OPEN_PANEL':
-          await vscode.commands.executeCommand('npm-visual-manager.openManager');
+          await vscode.commands.executeCommand('nodejs-package-manager.openManager');
           break;
         case 'OPEN_DOCS':
-          await vscode.env.openExternal(vscode.Uri.parse('https://github.com/luisssc/npm-visual-manager#readme'));
+          await vscode.env.openExternal(vscode.Uri.parse('https://github.com/mdtanvirahamedshanto/nodejs-package-manager#readme'));
           break;
         case 'OPEN_ISSUES':
-          await vscode.env.openExternal(vscode.Uri.parse('https://github.com/luisssc/npm-visual-manager/issues'));
+          await vscode.env.openExternal(vscode.Uri.parse('https://github.com/mdtanvirahamedshanto/nodejs-package-manager/issues'));
           break;
       }
     });
