@@ -1,15 +1,15 @@
-# NPM Visual Manager
+# Package Manager
 
-[![Open VSX Version](https://img.shields.io/open-vsx/v/LuisClementDev/npm-visual-manager)](https://open-vsx.org/extension/LuisClementDev/npm-visual-manager)
-[![Open VSX Downloads](https://img.shields.io/open-vsx/dt/LuisClementDev/npm-visual-manager)](https://open-vsx.org/extension/LuisClementDev/npm-visual-manager)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/luisssc/npm-visual-manager/ci.yml?branch=main)](https://github.com/luisssc/npm-visual-manager/actions)
-[![License](https://img.shields.io/github/license/luisssc/npm-visual-manager)](LICENSE)
+[![Open VSX Version](https://img.shields.io/open-vsx/v/mdtanvirahamedshanto/package-manager)](https://open-vsx.org/extension/mdtanvirahamedshanto/package-manager)
+[![Open VSX Downloads](https://img.shields.io/open-vsx/dt/mdtanvirahamedshanto/package-manager)](https://open-vsx.org/extension/mdtanvirahamedshanto/package-manager)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/mdtanvirahamedshanto/package-manager/ci.yml?branch=main)](https://github.com/mdtanvirahamedshanto/package-manager/actions)
+[![License](https://img.shields.io/github/license/mdtanvirahamedshanto/package-manager)](LICENSE)
 
 A Visual Studio Code extension that provides a visual interface for managing NPM dependencies, inspired by the NuGet Package Manager in Visual Studio.
 
 ## Screenshots
 
-![NPM Visual Manager Preview](screenshots/preview.gif)
+![NPM Package Manager Preview](screenshots/preview.gif)
 
 ## Features
 
@@ -31,7 +31,7 @@ A Visual Studio Code extension that provides a visual interface for managing NPM
 
 ## Installation
 
-Install from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=LuisClementDev.npm-visual-manager) or search for "NPM Visual Manager" in the Extensions panel (`Ctrl+Shift+X`).
+Install from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=mdtanvirahamedshanto.package-manager) or search for "Package Manager" in the Extensions panel (`Ctrl+Shift+X`).
 
 ## Usage
 
@@ -71,11 +71,11 @@ Hover over any package row and click the book icon 📖 to open the package's Gi
 
 This extension contributes the following settings:
 
-- `npm-visual-manager.columns.size`: Show Size column
-- `npm-visual-manager.columns.type`: Show Type column
-- `npm-visual-manager.columns.lastUpdate`: Show Last Update column
-- `npm-visual-manager.columns.security`: Show Security column
-- `npm-visual-manager.columns.semverUpdate`: Show Update Type column
+- `package-manager.columns.size`: Show Size column
+- `package-manager.columns.type`: Show Type column
+- `package-manager.columns.lastUpdate`: Show Last Update column
+- `package-manager.columns.security`: Show Security column
+- `package-manager.columns.semverUpdate`: Show Update Type column
 
 ## Contributing
 
