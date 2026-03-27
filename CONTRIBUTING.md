@@ -1,104 +1,97 @@
-# Contributing to NPM Package Manager
+# Contributing to Node.js Package Manager
 
-Thank you for your interest in contributing to NPM Package Manager! This document provides guidelines and instructions for contributing.
+Thank you for contributing. This project welcomes bug fixes, feature improvements, documentation updates, tests, and tooling enhancements.
 
 ## Code of Conduct
 
-Please be respectful and constructive in all interactions with the community.
+By participating, you agree to follow the Code of Conduct in CODE_OF_CONDUCT.md.
 
-## How to Contribute
+## Ways to Contribute
 
-### Reporting Bugs
+- Report bugs
+- Suggest features
+- Improve documentation
+- Submit pull requests for code and tests
 
-Before creating a bug report, please check the issue list to avoid duplicates.
+## Before You Start
 
-When creating a bug report, include:
-- A clear, descriptive title
-- A detailed description of the issue
-- Steps to reproduce the behavior
-- Expected behavior vs actual behavior
-- Screenshots if applicable
-- Your environment (VS Code version, Node.js version, OS)
-
-### Suggesting Enhancements
-
-Enhancement suggestions are tracked as GitHub issues. When creating an enhancement suggestion, include:
-- A clear, descriptive title
-- A detailed description of the suggested enhancement
-- Why this enhancement would be useful
-- Examples of similar features in other tools
-
-### Pull Requests
-
-1. Fork the repository
-2. Create a new branch for your feature (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Run tests: `npm run test`
-5. Run linting: `npm run lint`
-6. Format code: `npm run format`
-7. Commit with clear messages
-8. Push to your fork
-9. Create a Pull Request with a clear description
+1. Check existing issues and pull requests to avoid duplicates.
+2. Open an issue first for larger changes so we can align on scope.
+3. Keep pull requests focused and small when possible.
 
 ## Development Setup
 
 ```bash
-# Install dependencies
+# Clone your fork and enter the project
+git clone <your-fork-url>
+cd npm-package-manager
+
+# Install root + webview dependencies
 npm run install:all
 
-# Build webview UI
-npm run build:webview
+# Build webview and compile extension
+npm run vscode:prepublish
 
-# Compile TypeScript
-npm run compile
-
-# Watch mode for development
-npm run dev
-
-# Run tests
-npm run test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Run linting
+# Run quality checks
 npm run lint
-
-# Fix linting issues
-npm run lint:fix
-
-# Format code
-npm run format
+npm run test
 ```
 
-## Style Guide
+## Local Development Commands
 
-- Use TypeScript for type safety
-- Follow the existing code style
-- Use meaningful variable and function names
-- Add comments for complex logic
-- Write tests for new features
+```bash
+# Build webview only
+npm run build:webview
 
-## Testing
+# Compile extension TypeScript
+npm run compile
 
-- Write unit tests for new features
-- Ensure all tests pass before submitting PR
-- Aim for good test coverage
+# Development build
+npm run dev
 
-## Commit Messages
+# Lint and format
+npm run lint
+npm run lint:fix
+npm run format
+npm run format:check
 
-Use clear, descriptive commit messages:
-- Use present tense ("Add feature" not "Added feature")
-- Use imperative mood ("Move cursor to..." not "Moves cursor to...")
-- Limit the first line to 72 characters
-- Reference issues when applicable
+# Test
+npm run test
+npm run test:watch
+npm run test:coverage
+```
 
-## Release Process
+## Branch and Commit Guidelines
 
-Maintainers will handle versioning and releases following semantic versioning.
+- Create topic branches from main, for example:
+	- feat/add-audit-filter
+	- fix/sidebar-refresh-race
+	- docs/readme-installation
+- Write commit messages in imperative style, for example: Add dependency type filter
+- Reference issues in commits and PR descriptions when relevant
 
-## Questions?
+## Pull Request Checklist
 
-Feel free to open an issue or discussion for questions.
+Before opening a PR, ensure:
 
-Thank you for contributing!
+- Tests pass locally
+- Lint passes locally
+- No unrelated refactors are included
+- Public behavior changes are documented in README.md or CHANGELOG.md
+- Screenshots are included for UI changes
+
+## Testing Expectations
+
+- Add or update tests for behavior changes
+- Keep changes backward compatible unless explicitly discussed
+- Verify extension behavior with a real package.json project when possible
+
+## Review and Merge
+
+- Maintainers may request changes before merge
+- PRs are merged when CI passes and review feedback is addressed
+- Release versioning and publishing are handled by maintainers
+
+## Security Reports
+
+Do not open public issues for sensitive security vulnerabilities. Follow SECURITY.md for private reporting instructions.

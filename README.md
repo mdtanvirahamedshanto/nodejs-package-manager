@@ -70,7 +70,14 @@ This extension contributes the following configuration keys:
 
 ## Contributing
 
-Contributions are welcome. Please open an issue or submit a pull request.
+Contributions are welcome. Please review CONTRIBUTING.md before opening an issue or pull request.
+
+## Community and Support
+
+- Feature requests and bugs: [GitHub Issues](https://github.com/mdtanvirahamedshanto/nodejs-package-manager/issues)
+- Contribution guide: [CONTRIBUTING.md](CONTRIBUTING.md)
+- Code of conduct: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+- Security policy: [SECURITY.md](SECURITY.md)
 
 ## License
 
