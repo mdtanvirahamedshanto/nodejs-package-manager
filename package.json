@@ -1,8 +1,8 @@
 {
   "name": "nodejs-package-manager",
-  "displayName": "Nodejs Package Manager",
-  "description": "Visual package manager for NPM dependencies with update checking, security audit, and bulk operations",
-  "version": "1.4.0",
+  "displayName": "Node.js Package Manager",
+  "description": "A Visual Studio Code extension for managing Node.js dependencies with updates, security audits, and bulk operations.",
+  "version": "1.4.1",
   "publisher": "mdtanvirahamedshanto",
   "author": {
     "name": "Md Tanvir Ahamed Shanto",
@@ -11,13 +11,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mdtanvirahamedshanto/package-manager.git"
+    "url": "https://github.com/mdtanvirahamedshanto/nodejs-package-manager.git"
   },
   "bugs": {
-    "url": "https://github.com/mdtanvirahamedshanto/package-manager/issues"
+    "url": "https://github.com/mdtanvirahamedshanto/nodejs-package-manager/issues"
   },
-  "homepage": "https://github.com/mdtanvirahamedshanto/package-manager#readme",
-  "keywords" : [
+  "homepage": "https://github.com/mdtanvirahamedshanto/nodejs-package-manager#readme",
+  "keywords": [
     "npm",
     "dependencies",
     "packages",
@@ -38,7 +38,7 @@
     "onView:nodejs-package-manager.sidebar"
   ],
   "main": "./out/core/extension.js",
-  "icon": "resources/icon-marketplace.png",
+  "icon": "resources/nodejs-package-manager.png",
   "galleryBanner": {
     "color": "#CB3837",
     "theme": "dark"
@@ -59,7 +59,7 @@
     "commands": [
       {
         "command": "nodejs-package-manager.openManager",
-        "title": "Open NPM Package Manager",
+        "title": "Open Node.js Package Manager",
         "icon": "$(package)"
       },
       {
