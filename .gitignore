@@ -1,0 +1,23 @@
+out
+dist
+node_modules
+.vscode-test/
+*.vsix
+.DS_Store
+*.log
+*.tsbuildinfo
+
+# Development files
+DEV.md
+AGENTS.md
+
+# IDE directories
+.claude/
+.vscode/
+
+# OS files
+Thumbs.db
+
+# Test config artifacts
+vitest.config.js
+vitest.config.js.map
