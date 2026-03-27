@@ -267,7 +267,7 @@ function App() {
 
       <header className="app-header">
         <h1>
-          <i className="codicon codicon-package" /> NPM Visual Manager
+          <i className="codicon codicon-package" /> Node.js Package Manager
         </h1>
         <div className="header-controls">
           {projects.length > 1 ? (

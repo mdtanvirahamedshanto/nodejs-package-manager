@@ -6,7 +6,7 @@ export const en = {
     description:
       'Manage your dependencies with a visual interface. View updates, check versions, and update packages easily.',
     openButton: 'Open Package Manager',
-    shortcut: 'Or use <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> → "Open NPM Package Manager"',
+    shortcut: 'Or use <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> → "Open Node.js Package Manager"',
     quickLinks: 'Quick Links',
     documentation: 'Documentation',
     reportIssue: 'Report Issue',

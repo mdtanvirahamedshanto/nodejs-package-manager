@@ -8,7 +8,7 @@ export const ru: Translations = {
     description:
       'Управляйте зависимостями с помощью визуального интерфейса. Просматривайте обновления, проверяйте версии и легко обновляйте пакеты.',
     openButton: 'Открыть менеджер пакетов',
-    shortcut: 'Или используйте <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> → "Открыть NPM Package Manager"',
+    shortcut: 'Или используйте <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> → "Открыть Node.js Package Manager"',
     quickLinks: 'Быстрые ссылки',
     documentation: 'Документация',
     reportIssue: 'Сообщить о проблеме',

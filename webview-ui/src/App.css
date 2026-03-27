@@ -4,26 +4,45 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--vscode-textLink-foreground) 10%, transparent), transparent 42%),
+    var(--vscode-editor-background);
 }
 
 .app-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 20px;
-  background: var(--vscode-editor-background);
+  padding: 12px 18px;
+  background: color-mix(in srgb, var(--vscode-editor-background) 92%, var(--vscode-sideBar-background) 8%);
   border-bottom: 1px solid var(--vscode-panel-border);
   gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(6px);
 }
 
 .app-header h1 {
   margin: 0;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   white-space: nowrap;
+  letter-spacing: 0.1px;
+}
+
+.app-header h1 i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--vscode-textLink-foreground) 18%, transparent);
+  color: var(--vscode-textLink-foreground);
 }
 
 .app-header .package-name {
@@ -44,16 +63,17 @@
   background: var(--vscode-input-background);
   color: var(--vscode-input-foreground);
   border: 1px solid var(--vscode-input-border);
-  padding: 5px 10px;
-  border-radius: 4px;
+  padding: 7px 12px;
+  border-radius: 8px;
   font-size: 13px;
   max-width: 280px;
   min-width: 150px;
   cursor: pointer;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, background 0.2s;
 }
 
 .app-header .project-selector:hover {
+  background: color-mix(in srgb, var(--vscode-input-background) 88%, var(--vscode-list-hoverBackground) 12%);
   border-color: var(--vscode-inputOption-hoverBorder);
 }
 
@@ -65,31 +85,32 @@
 .toggle-packages-btn {
   background: var(--vscode-button-secondaryBackground);
   color: var(--vscode-button-secondaryForeground);
-  border: none;
-  padding: 5px 12px;
-  border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--vscode-button-secondaryForeground) 22%, transparent);
+  padding: 7px 12px;
+  border-radius: 8px;
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.15s;
 }
 
 .toggle-packages-btn:hover {
   background: var(--vscode-button-secondaryHoverBackground);
+  transform: translateY(-1px);
 }
 
 .refresh-cache-btn {
   background: var(--vscode-button-secondaryBackground);
   color: var(--vscode-button-secondaryForeground);
-  border: none;
-  padding: 5px 12px;
-  border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--vscode-button-secondaryForeground) 22%, transparent);
+  padding: 7px 12px;
+  border-radius: 8px;
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.15s;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -97,6 +118,7 @@
 
 .refresh-cache-btn:hover:not(:disabled) {
   background: var(--vscode-button-secondaryHoverBackground);
+  transform: translateY(-1px);
 }
 
 .refresh-cache-btn:disabled {
@@ -107,9 +129,9 @@
 .cache-indicator {
   font-size: 11px;
   color: var(--vscode-descriptionForeground);
-  background: var(--vscode-badge-background);
+  background: color-mix(in srgb, var(--vscode-badge-background) 78%, transparent);
   padding: 2px 8px;
-  border-radius: 10px;
+  border-radius: 999px;
   white-space: nowrap;
 }
 
@@ -138,6 +160,7 @@ body {
   font-size: var(--vscode-font-size);
   color: var(--vscode-editor-foreground);
   background: var(--vscode-editor-background);
+  line-height: 1.45;
 }
 
 /* Scrollbar styling para coincidir con VS Code */
@@ -179,6 +202,7 @@ body {
   justify-content: center;
   gap: 16px;
   color: var(--vscode-foreground);
+  text-align: center;
 }
 
 .spinner {
@@ -211,14 +235,17 @@ body {
   background: var(--vscode-button-background);
   color: var(--vscode-button-foreground);
   border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: 9px 16px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 13px;
+  font-weight: 600;
+  transition: transform 0.15s, background 0.2s;
 }
 
 .retry-btn:hover {
   background: var(--vscode-button-hoverBackground);
+  transform: translateY(-1px);
 }
 
 /* Progress bar */
@@ -248,10 +275,35 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: var(--vscode-editor-background);
+  background: color-mix(in srgb, var(--vscode-editor-background) 86%, var(--vscode-sideBar-background) 14%);
   color: var(--vscode-foreground);
   padding: 12px 24px;
-  border-radius: 4px;
+  border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 1px solid color-mix(in srgb, var(--vscode-focusBorder) 38%, transparent);
   z-index: 1000;
+}
+
+@media (max-width: 820px) {
+  .app-header {
+    padding: 10px 12px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .header-controls {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .app-header h1 {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .app-header .project-selector {
+    max-width: 100%;
+    min-width: 180px;
+  }
 }

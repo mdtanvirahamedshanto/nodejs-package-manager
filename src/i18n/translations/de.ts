@@ -8,7 +8,7 @@ export const de: Translations = {
     description:
       'Verwalten Sie Ihre Abhängigkeiten mit einer visuellen Oberfläche. Zeigen Sie Updates an, prüfen Sie Versionen und aktualisieren Sie Pakete einfach.',
     openButton: 'Paketmanager öffnen',
-    shortcut: 'Oder verwenden Sie <kbd>Strg</kbd>+<kbd>Umschalt</kbd>+<kbd>P</kbd> → "NPM Package Manager öffnen"',
+    shortcut: 'Oder verwenden Sie <kbd>Strg</kbd>+<kbd>Umschalt</kbd>+<kbd>P</kbd> → "Node.js Package Manager öffnen"',
     quickLinks: 'Schnelllinks',
     documentation: 'Dokumentation',
     reportIssue: 'Problem melden',

@@ -8,7 +8,7 @@ export const ptBr: Translations = {
     description:
       'Gerencie suas dependências com uma interface visual. Veja atualizações, verifique versões e atualize pacotes facilmente.',
     openButton: 'Abrir Gerenciador de Pacotes',
-    shortcut: 'Ou use <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> → "Abrir NPM Package Manager"',
+    shortcut: 'Ou use <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> → "Abrir Node.js Package Manager"',
     quickLinks: 'Links Rápidos',
     documentation: 'Documentação',
     reportIssue: 'Reportar Problema',

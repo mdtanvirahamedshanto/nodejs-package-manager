@@ -21,7 +21,7 @@ export function getHtmlForWebview(webview: vscode.Webview, extensionUri: vscode.
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'nonce-${nonce}'; style-src ${webview.cspSource} 'unsafe-inline'; font-src ${webview.cspSource}; connect-src https:;">
-  <title>NPM Package Manager</title>
+  <title>Node.js Package Manager</title>
   <link rel="stylesheet" href="${cssUri}?v=${cacheBuster}">
 </head>
 <body>

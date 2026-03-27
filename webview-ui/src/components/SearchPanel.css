@@ -1,7 +1,7 @@
 .search-panel {
   padding: 12px 16px;
   border-top: 1px solid var(--vscode-panel-border);
-  background: var(--vscode-editor-background);
+  background: color-mix(in srgb, var(--vscode-editor-background) 92%, var(--vscode-sideBar-background) 8%);
 }
 
 .search-header {
@@ -13,7 +13,7 @@
   color: var(--vscode-foreground);
   margin-bottom: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.45px;
   cursor: pointer;
   user-select: none;
 }
@@ -70,13 +70,15 @@
   background: var(--vscode-input-background);
   color: var(--vscode-input-foreground);
   border: 1px solid var(--vscode-input-border);
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 13px;
   outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .search-input:focus {
   border-color: var(--vscode-focusBorder);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--vscode-focusBorder) 25%, transparent);
 }
 
 .search-loading {
@@ -105,11 +107,12 @@
   padding: 12px;
   border-bottom: 1px solid var(--vscode-panel-border);
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.12s;
 }
 
 .search-result-item:hover {
   background: var(--vscode-list-hoverBackground);
+  transform: translateX(2px);
 }
 
 .search-result-item:last-child {
@@ -178,7 +181,8 @@
 .install-confirmation {
   background: var(--vscode-editor-inactiveSelectionBackground);
   padding: 16px;
-  border-radius: 6px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--vscode-focusBorder) 20%, transparent);
 }
 
 .install-confirmation h4 {
@@ -220,7 +224,7 @@
   color: var(--vscode-button-foreground);
   border: none;
   padding: 8px 16px;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 13px;
   font-weight: 500;
@@ -235,7 +239,7 @@
   color: #ffffff;
   border: none;
   padding: 8px 16px;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 13px;
   font-weight: 500;
@@ -256,7 +260,7 @@
   color: var(--vscode-button-secondaryForeground);
   border: none;
   padding: 8px 16px;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 13px;
 }
@@ -292,7 +296,7 @@
   color: var(--vscode-button-secondaryForeground);
   border: none;
   padding: 8px 16px;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 13px;
 }

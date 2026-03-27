@@ -1,5 +1,5 @@
 /**
- * Webview Panel handler for NPM Visual Manager
+ * Webview Panel handler for Node.js Package Manager
  */
 
 import * as vscode from 'vscode';
@@ -87,7 +87,7 @@ export class NpmGuiManagerPanel {
     // Create new panel
     const panel = vscode.window.createWebviewPanel(
       'npmGuiManager',
-      'NPM Package Manager',
+      'Node.js Package Manager',
       column || vscode.ViewColumn.One,
       {
         enableScripts: true,
@@ -497,8 +497,8 @@ export class NpmGuiManagerPanel {
       });
 
       // Update panel title with project name
-      const projectName = currentProject?.name || packageJson.name || 'NPM Package Manager';
-      this._panel.title = `NPM: ${projectName}`;
+      const projectName = currentProject?.name || packageJson.name || 'Node.js Package Manager';
+      this._panel.title = `Node.js: ${projectName}`;
 
       // Start checking updates in parallel
       await this._checkUpdates(dependencies);

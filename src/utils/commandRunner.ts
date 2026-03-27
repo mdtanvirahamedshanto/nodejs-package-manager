@@ -29,7 +29,7 @@ let outputChannel: vscode.OutputChannel | null = null;
 
 function getOutputChannel(): vscode.OutputChannel {
   if (!outputChannel) {
-    outputChannel = vscode.window.createOutputChannel('NPM Visual Manager');
+    outputChannel = vscode.window.createOutputChannel('Node.js Package Manager');
   }
   return outputChannel;
 }
