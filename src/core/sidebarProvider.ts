@@ -8,7 +8,11 @@ import { getNonce } from '../utils/nonce';
 import { getVSCodeLanguage } from '../i18n/getLanguage';
 import { getTranslations } from '../i18n';
 
-const EXTENSION_VERSION = '1.4.1';
+function getExtensionVersion(): string {
+  const extension = vscode.extensions.getExtension('mdtanvirahamedshanto.nodejs-package-manager');
+  const version = extension?.packageJSON?.version;
+  return typeof version === 'string' ? version : 'unknown';
+}
 
 export class NpmDependenciesProvider implements vscode.WebviewViewProvider {
   public static readonly viewType = 'nodejs-package-manager.sidebar';
@@ -64,6 +68,7 @@ export class NpmDependenciesProvider implements vscode.WebviewViewProvider {
     const nonce = getNonce();
     const language = getVSCodeLanguage();
     const t = getTranslations(language);
+    const extensionVersion = getExtensionVersion();
 
     return `<!DOCTYPE html>
 <html lang="en">
@@ -259,7 +264,7 @@ export class NpmDependenciesProvider implements vscode.WebviewViewProvider {
   <div class="welcome-container">
     <div class="logo">📦</div>
     <p class="title">Node.js Package Manager</p>
-    <span class="version">v${EXTENSION_VERSION}</span>
+    <span class="version">v${extensionVersion}</span>
     
     <p class="description">
       ${t.sidebar.description}

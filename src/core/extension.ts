@@ -64,12 +64,22 @@ export function activate(context: vscode.ExtensionContext): void {
     await openManagerHandler();
   };
 
+  const showSidebarHandler = async (): Promise<void> => {
+    // Reveal the contributed activity bar view container and focus its webview.
+    await vscode.commands.executeCommand('workbench.view.extension.nodejs-package-manager');
+    await vscode.commands.executeCommand('nodejs-package-manager.sidebar.focus');
+  };
+
   // Register refresh command and compatibility aliases from older extension IDs
   const refreshCommands = [
     'nodejs-package-manager.refresh',
     'package-manager.refresh',
     'npm-visual-manager.refresh',
   ].map(commandId => vscode.commands.registerCommand(commandId, refreshHandler));
+
+  const showSidebarCommands = [
+    'nodejs-package-manager.showSidebar',
+  ].map(commandId => vscode.commands.registerCommand(commandId, showSidebarHandler));
 
   // Register sidebar webview provider
   const sidebarProvider = new NpmDependenciesProvider();
@@ -81,6 +91,7 @@ export function activate(context: vscode.ExtensionContext): void {
 
   context.subscriptions.push(...openManagerCommands);
   context.subscriptions.push(...refreshCommands);
+  context.subscriptions.push(...showSidebarCommands);
   context.subscriptions.push(sidebarDisposable);
 }
 

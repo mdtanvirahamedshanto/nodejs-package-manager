@@ -2,6 +2,14 @@
 
 All notable changes to the "nodejs-package-manager" extension will be documented in this file.
 
+## [1.4.3] - 2026-03-27
+
+### Added
+- **Sidebar Recovery Command**: Added `Show Node.js Package Manager Sidebar` command so users can quickly restore/focus the sidebar from Command Palette if the view was hidden.
+
+### Changed
+- **Sidebar Version Source**: Sidebar version badge now reads the extension version dynamically from package metadata instead of using a hardcoded value.
+
 ## [1.4.0] - 2026-03-25
 
 ### Changed
