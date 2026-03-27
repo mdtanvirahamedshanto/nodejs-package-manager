@@ -8,10 +8,30 @@ import { getNonce } from '../utils/nonce';
 import { getVSCodeLanguage } from '../i18n/getLanguage';
 import { getTranslations } from '../i18n';
 
-const EXTENSION_VERSION = '1.4.0';
+const EXTENSION_VERSION = '1.4.1';
 
 export class NpmDependenciesProvider implements vscode.WebviewViewProvider {
   public static readonly viewType = 'nodejs-package-manager.sidebar';
+
+  private async openManagerFromSidebar(): Promise<void> {
+    const availableCommands = new Set(await vscode.commands.getCommands(true));
+    const candidates = [
+      'nodejs-package-manager.openManager',
+      'package-manager.openManager',
+      'npm-visual-manager.openManager',
+    ];
+
+    for (const command of candidates) {
+      if (availableCommands.has(command)) {
+        await vscode.commands.executeCommand(command);
+        return;
+      }
+    }
+
+    vscode.window.showErrorMessage(
+      'Node.js Package Manager: Open command is unavailable. Please reload VS Code and try again.'
+    );
+  }
 
   public resolveWebviewView(
     webviewView: vscode.WebviewView,
@@ -28,7 +48,7 @@ export class NpmDependenciesProvider implements vscode.WebviewViewProvider {
     webviewView.webview.onDidReceiveMessage(async message => {
       switch (message.type) {
         case 'OPEN_PANEL':
-          await vscode.commands.executeCommand('nodejs-package-manager.openManager');
+          await this.openManagerFromSidebar();
           break;
         case 'OPEN_DOCS':
           await vscode.env.openExternal(vscode.Uri.parse('https://github.com/mdtanvirahamedshanto/nodejs-package-manager#readme'));
@@ -51,7 +71,7 @@ export class NpmDependenciesProvider implements vscode.WebviewViewProvider {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'nonce-${nonce}';">
-  <title>NPM Visual Manager</title>
+  <title>Node.js Package Manager</title>
   <style>
     * {
       box-sizing: border-box;
@@ -238,7 +258,7 @@ export class NpmDependenciesProvider implements vscode.WebviewViewProvider {
 <body>
   <div class="welcome-container">
     <div class="logo">📦</div>
-    <p class="title">NPM Visual Manager</p>
+    <p class="title">Node.js Package Manager</p>
     <span class="version">v${EXTENSION_VERSION}</span>
     
     <p class="description">

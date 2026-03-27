@@ -14,10 +14,7 @@ export function activate(context: vscode.ExtensionContext): void {
   // Set global storage URI for cache service
   setGlobalStorageUri(context.globalStorageUri);
 
-  // Register the main command (opens in panel)
-  const openManagerCommand = vscode.commands.registerCommand(
-    'nodejs-package-manager.openManager',
-    async (resource?: vscode.Uri) => {
+  const openManagerHandler = async (resource?: vscode.Uri): Promise<void> => {
       const workspaceFolders = vscode.workspace.workspaceFolders;
 
       if (!workspaceFolders || workspaceFolders.length === 0) {
@@ -53,14 +50,26 @@ export function activate(context: vscode.ExtensionContext): void {
           `nodejs-package-manager: Failed to open manager - ${error instanceof Error ? error.message : String(error)}`
         );
       }
-    }
-  );
+    };
 
-  // Register refresh command
-  const refreshCommand = vscode.commands.registerCommand('nodejs-package-manager.refresh', async () => {
+  // Register main command and compatibility aliases from older extension IDs
+  const openManagerCommands = [
+    'nodejs-package-manager.openManager',
+    'package-manager.openManager',
+    'npm-visual-manager.openManager',
+  ].map(commandId => vscode.commands.registerCommand(commandId, openManagerHandler));
+
+  const refreshHandler = async (): Promise<void> => {
     vscode.window.showInformationMessage('Refreshing dependencies...');
-    vscode.commands.executeCommand('nodejs-package-manager.openManager');
-  });
+    await openManagerHandler();
+  };
+
+  // Register refresh command and compatibility aliases from older extension IDs
+  const refreshCommands = [
+    'nodejs-package-manager.refresh',
+    'package-manager.refresh',
+    'npm-visual-manager.refresh',
+  ].map(commandId => vscode.commands.registerCommand(commandId, refreshHandler));
 
   // Register sidebar webview provider
   const sidebarProvider = new NpmDependenciesProvider();
@@ -70,8 +79,8 @@ export function activate(context: vscode.ExtensionContext): void {
     },
   });
 
-  context.subscriptions.push(openManagerCommand);
-  context.subscriptions.push(refreshCommand);
+  context.subscriptions.push(...openManagerCommands);
+  context.subscriptions.push(...refreshCommands);
   context.subscriptions.push(sidebarDisposable);
 }
 

@@ -73,7 +73,7 @@
         {
           "id": "nodejs-package-manager",
           "title": "Package Manager",
-          "icon": "$(package)"
+          "icon": "resources/icon-theme-aware.svg"
         }
       ]
     },
