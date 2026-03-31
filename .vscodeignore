@@ -12,6 +12,10 @@ vsc-extension-quickstart.md
 webview-ui/node_modules/**
 !out/**/*.js
 !out/webview/**
-resources/*.svg
+resources/icon-dark.svg
+resources/icon-light.svg
+resources/icon-theme-aware.svg
+resources/nodejs-package-manager.svg
+!resources/sidebar.svg
 AGENTS.md
 DEV.md

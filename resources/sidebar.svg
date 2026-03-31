@@ -1,6 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" fill="none">
-  <!-- Monochrome icon optimized for VS Code activity bar -->
-  <rect x="18" y="26" width="92" height="72" rx="8" stroke="currentColor" stroke-width="8"/>
-  <path d="M40 50L64 38L88 50V74L64 86L40 74V50Z" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/>
-  <path d="M64 38V86M40 62H88" stroke="currentColor" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 3D Package Box - White for dark theme activity bar -->
+
+  <!-- Top face -->
+  <path d="M12 2L20 6.5V9L12 13.5L4 9V6.5L12 2Z" fill="#ffffff"/>
+
+  <!-- Front left face -->
+  <path d="M4 9V16L11 20V13L4 9Z" fill="#ffffff" opacity="0.7"/>
+
+  <!-- Front right face -->
+  <path d="M20 9V16L13 20V13L20 9Z" fill="#ffffff" opacity="0.85"/>
 </svg>
