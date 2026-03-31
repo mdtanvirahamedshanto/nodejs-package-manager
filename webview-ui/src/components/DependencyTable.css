@@ -280,7 +280,7 @@
 .table-wrapper {
   flex: 1;
   overflow: auto;
-  background: color-mix(in srgb, var(--table-bg) 98%, var(--header-bg) 2%);
+  background: transparent;
 }
 
 .dependency-table {
@@ -331,16 +331,15 @@
 }
 
 .dependency-table tbody tr:hover {
-  background: color-mix(in srgb, var(--row-hover-bg) 80%, transparent);
-  box-shadow: inset 0 1px 2px color-mix(in srgb, var(--row-hover-bg) 40%, transparent);
+  background: color-mix(in srgb, var(--row-hover-bg) 50%, transparent);
 }
 
 .dependency-table tbody tr.has-update {
-  background: color-mix(in srgb, var(--warning-fg) 8%, transparent);
+  background: transparent;
 }
 
 .dependency-table tbody tr.has-update:hover {
-  background: color-mix(in srgb, var(--warning-fg) 12%, var(--row-hover-bg) 30%);
+  background: color-mix(in srgb, var(--row-hover-bg) 50%, transparent);
 }
 
 /* Column widths */
