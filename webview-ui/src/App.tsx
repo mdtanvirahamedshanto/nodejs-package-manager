@@ -15,8 +15,34 @@ import type {
 import './App.css';
 import { useTranslation } from './i18n/I18nContext';
 
+// Extend Window interface for vscodeIcons
+declare global {
+  interface Window {
+    vscodeIcons?: {
+      dark: string;
+      light: string;
+    };
+  }
+}
+
+// Helper to get the appropriate logo based on VS Code theme
+const useBrandLogo = () => {
+  const [logoUri, setLogoUri] = useState<string>('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.vscodeIcons) {
+      // Check if VS Code is using a dark theme by checking the body background
+      const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setLogoUri(isDark ? window.vscodeIcons.dark : window.vscodeIcons.light);
+    }
+  }, []);
+
+  return logoUri;
+};
+
 function App() {
   const t = useTranslation();
+  const logoUri = useBrandLogo();
   const {
     requestDependencies,
     updatePackage,
@@ -266,9 +292,12 @@ function App() {
       )}
 
       <header className="app-header">
-        <h1>
-          <i className="codicon codicon-package" /> Node.js Package Manager
-        </h1>
+        <div className="header-left">
+          {logoUri && <img src={logoUri} alt="Package Manager" className="brand-logo" />}
+          <h1>
+            <i className="codicon codicon-package" /> Node.js Package Manager
+          </h1>
+        </div>
         <div className="header-controls">
           {projects.length > 1 ? (
             <select

@@ -1,3 +1,14 @@
+/* Modern DependencyTable Styles with Enhanced Depth and Interactivity */
+
+:root {
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.16);
+}
+
 /* Variables CSS nativas de VS Code - se adaptan automáticamente al tema */
 .dependency-table-container {
   --table-bg: var(--vscode-editor-background);
@@ -34,57 +45,84 @@
   line-height: 1;
 }
 
-/* Toolbar */
+/* Toolbar with modern styling */
 .toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border-color);
+  padding: 14px 16px;
+  border-bottom: 1px solid color-mix(in srgb, var(--border-color) 60%, transparent);
   gap: 16px;
   flex-wrap: wrap;
-  background: color-mix(in srgb, var(--table-bg) 92%, var(--header-bg) 8%);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--table-bg) 96%, var(--header-bg) 4%) 0%,
+    color-mix(in srgb, var(--table-bg) 98%, var(--header-bg) 2%) 100%
+  );
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--focus-border) 10%, transparent);
 }
 
 .filters {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   flex: 1;
   min-width: 200px;
+  align-items: center;
 }
 
 .filter-input {
-  background: var(--input-bg);
+  background: color-mix(in srgb, var(--input-bg) 96%, var(--focus-border) 4%);
   color: var(--input-fg);
-  border: 1px solid var(--input-border);
-  padding: 7px 10px;
-  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--input-border) 80%, transparent);
+  padding: 8px 12px;
+  border-radius: 6px;
   font-size: 13px;
   flex: 1;
-  max-width: 300px;
+  max-width: 320px;
+  transition:
+    border-color var(--transition-base),
+    background var(--transition-base),
+    box-shadow var(--transition-base);
 }
 
 .filter-input:focus {
   outline: none;
   border-color: var(--focus-border);
+  background: var(--input-bg);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--focus-border) 20%, transparent);
+}
+
+.filter-input::placeholder {
+  color: color-mix(in srgb, var(--input-fg) 50%, transparent);
 }
 
 .refresh-btn {
-  background: var(--vscode-button-secondaryBackground);
+  background: color-mix(in srgb, var(--vscode-button-secondaryBackground) 98%, var(--focus-border) 2%);
   color: var(--vscode-button-secondaryForeground);
-  border: 1px solid color-mix(in srgb, var(--vscode-button-secondaryForeground) 20%, transparent);
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-size: 14px;
+  border: 1px solid color-mix(in srgb, var(--vscode-button-secondaryForeground) 18%, transparent);
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 13px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s;
+  transition:
+    background var(--transition-base),
+    transform var(--transition-fast),
+    box-shadow var(--transition-base);
+  box-shadow: var(--shadow-sm);
 }
 
 .refresh-btn:hover:not(:disabled) {
   background: var(--vscode-button-secondaryHoverBackground);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.refresh-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .refresh-btn:disabled {
@@ -92,49 +130,42 @@
   cursor: not-allowed;
 }
 
-.update-all-btn {
-  background: var(--button-bg);
-  color: var(--button-fg);
-  border: none;
-  padding: 7px 14px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.update-all-btn:hover:not(:disabled) {
-  background: var(--button-hover-bg);
-}
-
-.update-all-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
+.update-all-btn,
 .update-selected-btn {
-  background: var(--vscode-button-background);
-  color: var(--vscode-button-foreground);
-  border: none;
-  padding: 7px 14px;
-  border-radius: 8px;
+  background: linear-gradient(135deg, var(--button-bg), color-mix(in srgb, var(--button-bg) 88%, var(--focus-border) 12%));
+  color: var(--button-fg);
+  border: 1px solid color-mix(in srgb, var(--button-fg) 15%, transparent);
+  padding: 8px 14px;
+  border-radius: 6px;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  white-space: nowrap;
   display: flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
+  transition:
+    background var(--transition-base),
+    transform var(--transition-fast),
+    box-shadow var(--transition-base);
+  box-shadow: var(--shadow-md);
+  letter-spacing: 0.2px;
 }
 
+.update-all-btn:hover:not(:disabled),
 .update-selected-btn:hover:not(:disabled) {
-  background: var(--vscode-button-hoverBackground);
+  background: linear-gradient(135deg, var(--button-hover-bg), color-mix(in srgb, var(--button-hover-bg) 92%, var(--focus-border) 8%));
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
 }
 
+.update-all-btn:active:not(:disabled),
+.update-selected-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.update-all-btn:disabled,
 .update-selected-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -143,27 +174,38 @@
 .toolbar-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .rollback-btn {
-  background: var(--vscode-errorForeground);
-  color: var(--vscode-editor-background);
-  border: none;
-  padding: 7px 14px;
-  border-radius: 8px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--error-fg) 95%, white 5%), color-mix(in srgb, var(--error-fg) 88%, white 12%));
+  color: white;
+  border: 1px solid color-mix(in srgb, var(--error-fg) 30%, white 70%);
+  padding: 8px 14px;
+  border-radius: 6px;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  white-space: nowrap;
   display: flex;
   align-items: center;
   gap: 6px;
-  transition: opacity 0.2s;
+  white-space: nowrap;
+  transition:
+    background var(--transition-base),
+    transform var(--transition-fast),
+    box-shadow var(--transition-base);
+  box-shadow: var(--shadow-md);
 }
 
 .rollback-btn:hover:not(:disabled) {
-  opacity: 0.9;
+  background: linear-gradient(135deg, var(--error-fg), color-mix(in srgb, var(--error-fg) 92%, white 8%));
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+.rollback-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .rollback-btn:disabled {
@@ -174,53 +216,63 @@
 .env-info {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-left: 12px;
+  gap: 10px;
+  margin-left: 8px;
   padding-left: 12px;
-  border-left: 1px solid var(--border-color);
+  border-left: 1px solid color-mix(in srgb, var(--border-color) 40%, transparent);
 }
 
 .env-badge {
   font-size: 11px;
-  padding: 2px 8px;
-  border-radius: 4px;
+  padding: 4px 10px;
+  border-radius: 6px;
   font-family: var(--vscode-editor-font-family, monospace);
   white-space: nowrap;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .node-badge {
-  background: color-mix(in srgb, #68a063 20%, transparent);
+  background: color-mix(in srgb, #68a063 25%, transparent);
   color: #68a063;
+  border: 1px solid color-mix(in srgb, #68a063 30%, transparent);
 }
 
 .pm-badge {
   font-weight: 600;
   text-transform: uppercase;
+  border: 1px solid currentColor;
+  opacity: 0.9;
 }
 
 .pm-badge.npm {
-  background: color-mix(in srgb, #cb3837 20%, transparent);
+  background: color-mix(in srgb, #cb3837 25%, transparent);
   color: #cb3837;
+  border-color: color-mix(in srgb, #cb3837 30%, transparent);
 }
 
 .pm-badge.yarn {
-  background: color-mix(in srgb, #2c8ebb 20%, transparent);
+  background: color-mix(in srgb, #2c8ebb 25%, transparent);
   color: #2c8ebb;
+  border-color: color-mix(in srgb, #2c8ebb 30%, transparent);
 }
 
 .pm-badge.pnpm {
-  background: color-mix(in srgb, #f69220 20%, transparent);
+  background: color-mix(in srgb, #f69220 25%, transparent);
   color: #f69220;
+  border-color: color-mix(in srgb, #f69220 30%, transparent);
 }
 
 .pm-badge.bun {
   background: color-mix(in srgb, #f9f1e1 40%, transparent);
   color: #8B4513;
+  border-color: color-mix(in srgb, #8B4513 30%, transparent);
 }
 
 .pm-version {
   margin-left: 4px;
-  opacity: 0.8;
+  opacity: 0.75;
   font-weight: 400;
 }
 
@@ -228,7 +280,7 @@
 .table-wrapper {
   flex: 1;
   overflow: auto;
-  background: color-mix(in srgb, var(--table-bg) 95%, var(--header-bg) 5%);
+  background: color-mix(in srgb, var(--table-bg) 98%, var(--header-bg) 2%);
 }
 
 .dependency-table {
@@ -241,47 +293,54 @@
 .dependency-table thead {
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 10;
 }
 
 .dependency-table th {
-  background: var(--header-bg);
-  padding: 10px 12px;
+  background: linear-gradient(180deg, var(--header-bg), color-mix(in srgb, var(--header-bg) 94%, var(--table-bg) 6%));
+  padding: 11px 12px;
   text-align: left;
   font-weight: 600;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid color-mix(in srgb, var(--border-color) 70%, transparent);
   white-space: nowrap;
-  letter-spacing: 0.15px;
+  letter-spacing: 0.2px;
+  color: var(--table-fg);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--focus-border) 8%, transparent);
 }
 
 .dependency-table th.sortable {
   cursor: pointer;
   user-select: none;
+  transition: background var(--transition-fast);
 }
 
 .dependency-table th.sortable:hover {
-  background: var(--row-hover-bg);
+  background: linear-gradient(180deg, var(--row-hover-bg), color-mix(in srgb, var(--row-hover-bg) 94%, var(--table-bg) 6%));
 }
 
 .dependency-table td {
   padding: 10px 12px;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.dependency-table tbody tr:hover {
-  background: var(--row-hover-bg);
+  border-bottom: 1px solid color-mix(in srgb, var(--border-color) 40%, transparent);
 }
 
 .dependency-table tbody tr {
-  transition: background 0.15s ease;
+  transition:
+    background var(--transition-base),
+    box-shadow var(--transition-base);
+  position: relative;
+}
+
+.dependency-table tbody tr:hover {
+  background: color-mix(in srgb, var(--row-hover-bg) 80%, transparent);
+  box-shadow: inset 0 1px 2px color-mix(in srgb, var(--row-hover-bg) 40%, transparent);
 }
 
 .dependency-table tbody tr.has-update {
-  background: color-mix(in srgb, var(--warning-fg) 5%, transparent);
+  background: color-mix(in srgb, var(--warning-fg) 8%, transparent);
 }
 
 .dependency-table tbody tr.has-update:hover {
-  background: color-mix(in srgb, var(--warning-fg) 10%, var(--row-hover-bg));
+  background: color-mix(in srgb, var(--warning-fg) 12%, var(--row-hover-bg) 30%);
 }
 
 /* Column widths */
@@ -292,10 +351,17 @@
 
 .checkbox-cell {
   text-align: center;
+  padding: 10px 6px;
 }
 
 .checkbox-cell input[type="checkbox"] {
   cursor: pointer;
+  accent-color: var(--focus-border);
+  transition: transform var(--transition-fast);
+}
+
+.checkbox-cell input[type="checkbox"]:hover {
+  transform: scale(1.1);
 }
 
 .checkbox-cell input[type="checkbox"]:disabled {
@@ -304,14 +370,18 @@
 }
 
 .package-col {
-  width: 150px;
-  max-width: 200px;
+  width: 160px;
+  max-width: 220px;
 }
 
 .package-link {
   color: var(--vscode-textLink-foreground);
   text-decoration: none;
   font-weight: 500;
+  transition:
+    color var(--transition-fast),
+    text-decoration var(--transition-fast);
+  position: relative;
 }
 
 .package-link:hover {
@@ -319,16 +389,34 @@
   text-decoration: underline;
 }
 
+.package-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--vscode-textLink-activeForeground);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--transition-fast);
+}
+
+.package-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
 .type-col {
-  width: 70px;
+  width: 75px;
 }
 
 .version-col {
-  width: 100px;
+  width: 105px;
 }
 
 .size-col {
-  width: 80px;
+  width: 90px;
 }
 
 .size-cell {
@@ -338,15 +426,18 @@
 
 .size-text {
   font-family: var(--vscode-editor-font-family, monospace);
+  background: color-mix(in srgb, var(--table-fg) 5%, transparent);
+  padding: 3px 8px;
+  border-radius: 4px;
 }
 
 .update-type-col {
-  width: 70px;
+  width: 75px;
   text-align: center;
 }
 
 .date-col {
-  width: 70px;
+  width: 80px;
   white-space: nowrap;
 }
 
@@ -360,24 +451,26 @@
 }
 
 .action-col {
-  width: 140px;
+  width: 150px;
   text-align: center !important;
 }
 
 .action-cell {
-  width: 140px;
+  width: 150px;
   text-align: center !important;
+  padding: 6px 8px;
 }
 
 /* Package name cell */
 .package-name {
-  padding: 8px;
+  padding: 10px 12px;
 }
 
 .package-info {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .package-icon {
@@ -392,64 +485,104 @@
 }
 
 .status-badge {
-  margin-left: 8px;
+  margin-left: 4px;
   font-size: 11px;
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  padding: 2px 6px;
-  border-radius: 10px;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.status-badge:hover {
+  transform: scale(1.05);
 }
 
 .status-danger {
-  background: var(--vscode-errorForeground, #f44336);
-  color: var(--vscode-editor-background);
+  background: color-mix(in srgb, var(--error-fg) 25%, transparent);
+  color: var(--error-fg);
+  border: 1px solid color-mix(in srgb, var(--error-fg) 30%, transparent);
 }
 
 .status-safe {
-  color: var(--vscode-testing-iconPassed, #4caf50);
-  opacity: 0.7;
+  color: var(--success-fg);
+  opacity: 0.85;
 }
 
 .status-deprecated {
-  background: var(--vscode-editorWarning-foreground, #ff9800);
-  color: var(--vscode-editor-background);
+  background: color-mix(in srgb, var(--warning-fg) 25%, transparent);
+  color: var(--warning-fg);
+  border: 1px solid color-mix(in srgb, var(--warning-fg) 30%, transparent);
 }
 
 .update-badge {
   background: var(--warning-fg);
-  color: var(--table-bg);
+  color: white;
   font-size: 10px;
-  padding: 2px 6px;
-  border-radius: 10px;
-  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-sm);
 }
 
 /* Type badges */
 .type-badge {
   display: inline-block;
-  padding: 2px 8px;
-  border-radius: 3px;
+  padding: 4px 10px;
+  border-radius: 4px;
   font-size: 11px;
-  font-weight: 500;
-  background: var(--badge-bg);
+  font-weight: 600;
+  background: color-mix(in srgb, var(--badge-bg) 88%, var(--table-bg) 12%);
   color: var(--badge-fg);
+  border: 1px solid color-mix(in srgb, var(--badge-fg) 25%, transparent);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.type-badge:hover {
+  background: var(--badge-bg);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Version cells */
-.version-cell code {
+.version-cell {
   font-family: var(--vscode-editor-font-family, monospace);
+}
+
+.version-cell code {
+  font-family: inherit;
   font-size: 12px;
-  background: color-mix(in srgb, var(--table-fg) 5%, transparent);
-  padding: 2px 6px;
-  border-radius: 3px;
-  animation: fadeIn 0.2s ease-out;
+  background: color-mix(in srgb, var(--table-fg) 7%, transparent);
+  padding: 4px 8px;
+  border-radius: 4px;
+  animation: fadeInUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: inline-block;
+  transition:
+    background var(--transition-fast),
+    box-shadow var(--transition-fast);
+  border: 1px solid color-mix(in srgb, var(--table-fg) 10%, transparent);
+}
+
+.version-cell code:hover {
+  background: color-mix(in srgb, var(--table-fg) 12%, transparent);
+  box-shadow: var(--shadow-sm);
 }
 
 .version-cell .latest-version {
-  background: color-mix(in srgb, var(--success-fg) 20%, transparent);
+  background: color-mix(in srgb, var(--success-fg) 25%, transparent);
   color: var(--success-fg);
+  border-color: color-mix(in srgb, var(--success-fg) 30%, transparent);
+  font-weight: 600;
 }
 
 .version-cell .checking {
@@ -464,77 +597,103 @@
   margin-left: 4px;
   cursor: help;
   opacity: 0;
-  transition: opacity 0.2s;
+  transition: opacity var(--transition-base);
+  font-weight: bold;
 }
 
 .version-cell:hover .version-mismatch-icon {
   opacity: 1;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-2px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Semver badges */
 .semver-badge {
   display: inline-block;
-  padding: 2px 8px;
-  border-radius: 3px;
+  padding: 4px 10px;
+  border-radius: 4px;
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  animation: fadeIn 0.2s ease-out;
-  color: var(--vscode-editor-background);
+  letter-spacing: 0.6px;
+  animation: fadeInUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: white;
+  border: 1px solid currentColor;
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.semver-badge:hover {
+  transform: scale(1.08);
+  box-shadow: var(--shadow-md);
 }
 
 .semver-major {
-  background: var(--vscode-errorForeground, #f44336);
+  background: var(--error-fg);
+  border-color: color-mix(in srgb, var(--error-fg) 60%, white 40%);
 }
 
 .semver-minor {
-  background: var(--vscode-warningForeground, #ff9800);
+  background: var(--warning-fg);
+  border-color: color-mix(in srgb, var(--warning-fg) 60%, white 40%);
 }
 
 .semver-patch {
-  background: var(--vscode-testing-iconPassed, #4caf50);
+  background: var(--success-fg);
+  border-color: color-mix(in srgb, var(--success-fg) 60%, white 40%);
 }
 
 /* Tooltip - VS Code native style */
 .tooltip-wrapper {
   position: relative;
+  display: inline-block;
 }
 
 .tooltip-wrapper .tooltip {
   visibility: hidden;
   opacity: 0;
   position: absolute;
-  bottom: calc(100% + 6px);
+  bottom: calc(100% + 8px);
   left: 50%;
-  transform: translateX(-50%);
-  background: var(--vscode-editorHoverWidget-background, var(--vscode-editor-background));
-  border: 1px solid var(--vscode-editorHoverWidget-border, var(--border-color));
+  transform: translateX(-50%) translateY(4px);
+  background: color-mix(in srgb, var(--vscode-editorHoverWidget-background, var(--table-bg)) 88%, var(--table-fg) 12%);
+  border: 1px solid color-mix(in srgb, var(--vscode-editorHoverWidget-border, var(--border-color)) 80%, transparent);
   color: var(--vscode-editorHoverWidget-foreground, var(--table-fg));
-  padding: 4px 8px;
-  border-radius: 3px;
-  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 11px;
   white-space: nowrap;
   pointer-events: none;
   z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
-  transition: opacity 0.15s ease-in, visibility 0.15s ease-in;
+  box-shadow: var(--shadow-lg);
+  transition:
+    opacity var(--transition-base),
+    visibility var(--transition-base),
+    transform var(--transition-base);
+  backdrop-filter: blur(8px);
 }
 
 .tooltip-wrapper:hover .tooltip {
   visibility: visible;
   opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 /* Date cell */
 .date-cell .date-text {
   color: var(--vscode-descriptionForeground, #888);
   font-size: 12px;
+  font-family: var(--vscode-editor-font-family, monospace);
 }
 
 .date-cell .checking {
@@ -552,11 +711,19 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 2px 8px;
-  border-radius: 3px;
+  padding: 4px 10px;
+  border-radius: 4px;
   font-size: 12px;
   font-weight: 500;
   gap: 4px;
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.security-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 
 .security-safe {
@@ -564,7 +731,7 @@
 }
 
 .security-danger {
-  background: color-mix(in srgb, var(--error-fg) 15%, transparent);
+  background: color-mix(in srgb, var(--error-fg) 20%, transparent);
   color: var(--error-fg);
 }
 
@@ -574,19 +741,33 @@
 }
 
 .update-btn {
-  background: var(--button-bg);
+  background: linear-gradient(135deg, var(--button-bg), color-mix(in srgb, var(--button-bg) 88%, var(--focus-border) 12%));
   color: var(--button-fg);
-  border: none;
-  padding: 4px 8px;
-  border-radius: 2px;
+  border: 1px solid color-mix(in srgb, var(--button-fg) 15%, transparent);
+  padding: 6px 10px;
+  border-radius: 4px;
   font-size: 11px;
+  font-weight: 600;
   cursor: pointer;
-  min-width: 50px;
+  min-width: 55px;
   margin-right: 4px;
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+  letter-spacing: 0.2px;
 }
 
 .update-btn:hover:not(:disabled) {
-  background: var(--button-hover-bg);
+  background: linear-gradient(135deg, var(--button-hover-bg), color-mix(in srgb, var(--button-hover-bg) 92%, var(--focus-border) 8%));
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.update-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 .update-btn:disabled {
@@ -596,12 +777,27 @@
 
 .up-to-date {
   color: var(--success-fg);
-  font-size: 14px;
+  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 24px;
   height: 24px;
+  animation: checkmark-bounce 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes checkmark-bounce {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Action buttons */
@@ -609,96 +805,65 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 2px;
+  gap: 4px;
   min-height: 28px;
   width: 100%;
-  padding: 0 8px;
+  padding: 0 4px;
 }
 
-.ignore-btn {
-  background: transparent;
-  border: none;
-  color: var(--vscode-descriptionForeground, #888);
-  cursor: pointer;
-  padding: 4px;
-  border-radius: 3px;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  opacity: 0;
-  transition: opacity 0.2s, background 0.2s;
-}
-
-tr:hover .ignore-btn {
-  opacity: 1;
-}
-
-.ignore-btn:hover:not(:disabled) {
-  background: var(--row-hover-bg);
-  color: var(--vscode-foreground);
-}
-
-.ignore-btn:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
+.ignore-btn,
+.uninstall-btn,
 .changelog-btn {
   background: transparent;
-  border: none;
+  border: 1px solid transparent;
   color: var(--vscode-descriptionForeground, #888);
   cursor: pointer;
-  padding: 4px;
-  border-radius: 3px;
+  padding: 4px 6px;
+  border-radius: 4px;
   font-size: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   opacity: 0;
-  transition: opacity 0.2s, background 0.2s;
+  transition:
+    opacity var(--transition-base),
+    background var(--transition-base),
+    color var(--transition-base),
+    transform var(--transition-fast);
 }
 
+tr:hover .ignore-btn,
+tr:hover .uninstall-btn,
 tr:hover .changelog-btn,
+.action-cell:hover .ignore-btn,
+.action-cell:hover .uninstall-btn,
 .action-cell:hover .changelog-btn {
   opacity: 1;
 }
 
-.changelog-btn:hover {
-  background: var(--row-hover-bg);
+.ignore-btn:hover:not(:disabled),
+.changelog-btn:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--row-hover-bg) 80%, transparent);
   color: var(--vscode-foreground);
+  border-color: color-mix(in srgb, var(--border-color) 40%, transparent);
+  transform: translateY(-1px);
 }
 
 .uninstall-btn {
-  background: transparent;
-  border: none;
   color: var(--vscode-errorForeground, #f44336);
-  cursor: pointer;
-  padding: 4px;
-  border-radius: 3px;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  opacity: 0;
-  transition: opacity 0.2s, background 0.2s;
-}
-
-tr:hover .uninstall-btn,
-.action-cell:hover .uninstall-btn {
-  opacity: 1;
 }
 
 .uninstall-btn:hover:not(:disabled) {
-  background: var(--vscode-errorBackground, rgba(244, 67, 54, 0.1));
+  background: color-mix(in srgb, var(--error-fg) 20%, transparent);
+  color: var(--error-fg);
+  border-color: color-mix(in srgb, var(--error-fg) 30%, transparent);
+  transform: translateY(-1px);
 }
 
+.ignore-btn:disabled,
+.changelog-btn:disabled,
 .uninstall-btn:disabled {
   opacity: 0.3;
   cursor: not-allowed;
@@ -711,221 +876,153 @@ tr:hover .uninstall-btn,
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: color-mix(in srgb, rgba(0, 0, 0) 50%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  backdrop-filter: blur(2px);
+  animation: modal-fade-in var(--transition-base);
+}
+
+@keyframes modal-fade-in {
+  from {
+    background: color-mix(in srgb, rgba(0, 0, 0) 0%, transparent);
+    backdrop-filter: blur(0px);
+  }
+  to {
+    background: color-mix(in srgb, rgba(0, 0, 0) 50%, transparent);
+    backdrop-filter: blur(2px);
+  }
 }
 
 .modal-content {
-  background: var(--vscode-editor-background);
-  border: 1px solid var(--vscode-panel-border);
-  border-radius: 6px;
-  padding: 20px;
+  background: linear-gradient(135deg, var(--table-bg), color-mix(in srgb, var(--table-bg) 96%, var(--focus-border) 4%));
+  border: 1px solid color-mix(in srgb, var(--vscode-panel-border) 70%, transparent);
+  border-radius: 8px;
+  padding: 22px;
   min-width: 300px;
   max-width: 400px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg);
+  animation: modal-slide-up var(--transition-base) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modal-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .modal-content h3 {
-  margin: 0 0 12px 0;
+  margin: 0 0 14px 0;
   font-size: 16px;
+  font-weight: 600;
   color: var(--vscode-foreground);
+  letter-spacing: 0.2px;
 }
 
 .modal-content p {
   margin: 0 0 20px 0;
   font-size: 13px;
   color: var(--vscode-descriptionForeground);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .modal-content strong {
   color: var(--vscode-foreground);
+  font-weight: 600;
 }
 
 .modal-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 10px;
+  margin-top: 24px;
 }
 
 .modal-btn {
-  padding: 6px 16px;
-  border: none;
-  border-radius: 4px;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 6px;
   font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s;
+  transition:
+    background var(--transition-base),
+    transform var(--transition-fast),
+    box-shadow var(--transition-base);
+  letter-spacing: 0.2px;
 }
 
 .modal-btn.cancel {
-  background: var(--vscode-button-secondaryBackground);
+  background: color-mix(in srgb, var(--vscode-button-secondaryBackground) 96%, var(--focus-border) 4%);
   color: var(--vscode-button-secondaryForeground);
+  border-color: color-mix(in srgb, var(--vscode-button-secondaryForeground) 15%, transparent);
 }
 
 .modal-btn.cancel:hover {
   background: var(--vscode-button-secondaryHoverBackground);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .modal-btn.confirm {
-  background: var(--vscode-errorForeground);
+  background: linear-gradient(135deg, var(--error-fg), color-mix(in srgb, var(--error-fg) 88%, white 12%));
   color: white;
+  border-color: color-mix(in srgb, var(--error-fg) 40%, white 60%);
+  box-shadow: var(--shadow-md);
 }
 
 .modal-btn.confirm:hover {
-  background: color-mix(in srgb, var(--vscode-errorForeground) 80%, white);
+  background: var(--error-fg);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
 }
 
-/* Update modal specific styles */
-.modal-version-info {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin: 16px 0;
-  padding: 12px;
-  background: var(--vscode-editor-inactiveSelectionBackground);
-  border-radius: 4px;
-}
-
-.modal-version-info .version-from,
-.modal-version-info .version-to {
-  font-family: var(--vscode-editor-font-family, monospace);
-  font-size: 14px;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 4px;
-}
-
-.modal-version-info .version-from {
-  background: color-mix(in srgb, var(--vscode-descriptionForeground) 20%, transparent);
-  color: var(--vscode-descriptionForeground);
-}
-
-.modal-version-info .version-to {
-  background: color-mix(in srgb, var(--vscode-testing-iconPassed, #4caf50) 20%, transparent);
-  color: var(--vscode-testing-iconPassed, #4caf50);
-}
-
-.modal-version-info .codicon {
-  color: var(--vscode-foreground);
-  font-size: 14px;
-}
-
-/* Large modal for Update All / Update Selected */
-.modal-content-large {
-  max-width: 450px;
-  min-width: 350px;
-}
-
-.modal-package-list {
-  max-height: 200px;
-  overflow-y: auto;
-  margin: 16px 0;
-  padding: 8px;
-  background: var(--vscode-editor-inactiveSelectionBackground);
-  border-radius: 4px;
-}
-
-.modal-package-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6px 8px;
-  font-size: 13px;
-  border-bottom: 1px solid color-mix(in srgb, var(--vscode-panel-border) 50%, transparent);
-}
-
-.modal-package-item:last-child {
-  border-bottom: none;
-}
-
-.modal-package-item.more-items {
-  justify-content: center;
-  color: var(--vscode-descriptionForeground);
-  font-style: italic;
-}
-
-.package-name-text {
-  font-weight: 500;
-  color: var(--vscode-foreground);
-}
-
-.version-arrow {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--vscode-editor-font-family, monospace);
-}
-
-.version-from-small,
-.version-to-small {
-  font-size: 12px;
-  padding: 2px 6px;
-  border-radius: 3px;
-}
-
-.version-from-small {
-  background: color-mix(in srgb, var(--vscode-descriptionForeground) 15%, transparent);
-  color: var(--vscode-descriptionForeground);
-}
-
-.version-to-small {
-  background: color-mix(in srgb, var(--vscode-testing-iconPassed, #4caf50) 15%, transparent);
-  color: var(--vscode-testing-iconPassed, #4caf50);
-}
-
-.version-arrow .codicon {
-  font-size: 12px;
-  color: var(--vscode-foreground);
-}
-
-/* Ignore modal hint */
-.modal-hint {
-  font-size: 12px;
-  color: var(--vscode-descriptionForeground);
-  font-style: italic;
-  margin-top: -12px;
-  margin-bottom: 16px;
-}
-
-/* Also show ignore button on row hover */
-tr:hover .ignore-btn,
-.action-cell:hover .ignore-btn {
-  opacity: 1;
+.modal-btn:active {
+  transform: translateY(0);
 }
 
 /* Ignored section */
 .ignored-separator {
   cursor: pointer;
   user-select: none;
+  transition: background var(--transition-base);
 }
 
 .ignored-separator td {
-  padding: 8px 12px;
+  padding: 10px 12px;
   font-size: 12px;
   font-weight: 600;
   color: var(--vscode-descriptionForeground, #888);
-  border-bottom: 1px solid var(--border-color);
-  background: var(--header-bg);
+  border-bottom: 1px solid color-mix(in srgb, var(--border-color) 50%, transparent);
+  background: linear-gradient(180deg, var(--header-bg), color-mix(in srgb, var(--header-bg) 94%, var(--table-bg) 6%));
+  letter-spacing: 0.1px;
 }
 
 .ignored-separator:hover td {
-  background: var(--row-hover-bg);
+  background: linear-gradient(180deg, var(--row-hover-bg), color-mix(in srgb, var(--row-hover-bg) 94%, var(--table-bg) 6%));
 }
 
 .ignored-separator .codicon {
   font-size: 10px;
+  margin-right: 4px;
 }
 
 .ignored-row {
-  opacity: 0.5;
+  opacity: 0.6;
+  transition:
+    opacity var(--transition-base),
+    background var(--transition-base);
 }
 
 .ignored-row:hover {
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .package-link-disabled {
@@ -935,18 +1032,24 @@ tr:hover .ignore-btn,
 
 .unignore-btn {
   background: transparent;
-  border: none;
+  border: 1px solid transparent;
   color: var(--vscode-descriptionForeground, #888);
   cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 3px;
+  padding: 4px 10px;
+  border-radius: 4px;
   font-size: 12px;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background var(--transition-base),
+    color var(--transition-base),
+    transform var(--transition-fast);
+  font-weight: 500;
 }
 
 .unignore-btn:hover:not(:disabled) {
-  background: var(--row-hover-bg);
+  background: color-mix(in srgb, var(--row-hover-bg) 80%, transparent);
   color: var(--vscode-foreground);
+  border-color: color-mix(in srgb, var(--border-color) 40%, transparent);
+  transform: translateY(-1px);
 }
 
 .unignore-btn:disabled {
@@ -957,32 +1060,49 @@ tr:hover .ignore-btn,
 /* Empty state */
 .empty-state {
   text-align: center;
-  padding: 40px;
+  padding: 60px 40px;
   color: var(--vscode-descriptionForeground, #888);
   font-style: italic;
+  font-size: 14px;
 }
 
 /* Footer */
 .footer {
   display: flex;
   justify-content: space-between;
-  padding: 10px 16px;
-  border-top: 1px solid var(--border-color);
+  align-items: center;
+  padding: 12px 16px;
+  border-top: 1px solid color-mix(in srgb, var(--border-color) 60%, transparent);
   font-size: 12px;
   color: var(--vscode-descriptionForeground, #888);
+  background: linear-gradient(180deg, var(--table-bg), color-mix(in srgb, var(--table-bg) 96%, var(--header-bg) 4%));
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--focus-border) 8%, transparent);
 }
 
 .update-summary {
   color: var(--warning-fg);
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.2px;
 }
 
 .rollback-message {
   color: var(--success-fg);
-  font-weight: 500;
+  font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+  animation: slideInRight var(--transition-base);
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* Loading state */
@@ -992,85 +1112,22 @@ tr:hover .ignore-btn,
   align-items: center;
   justify-content: center;
   height: 100%;
-  gap: 16px;
+  gap: 20px;
+  padding: 20px;
 }
 
 .spinner {
-  width: 32px;
-  height: 32px;
-  border: 3px solid color-mix(in srgb, var(--table-fg) 20%, transparent);
-  border-top-color: var(--button-bg);
+  width: 36px;
+  height: 36px;
+  border: 3px solid color-mix(in srgb, var(--vscode-widget-border) 40%, transparent);
+  border-top-color: var(--vscode-textLink-foreground);
   border-radius: 50%;
   animation: spin 1s linear infinite;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--vscode-textLink-foreground) 25%, transparent));
 }
 
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
-}
-
-/* Error state */
-.error-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  gap: 16px;
-  padding: 40px;
-  text-align: center;
-}
-
-.error-icon {
-  font-size: 48px;
-  color: var(--error-fg);
-}
-
-.error-message {
-  color: var(--error-fg);
-  max-width: 400px;
-}
-
-.retry-btn {
-  background: var(--button-bg);
-  color: var(--button-fg);
-  border: none;
-  padding: 8px 16px;
-  border-radius: 2px;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-.retry-btn:hover {
-  background: var(--button-hover-bg);
-}
-
-/* Progress indicator */
-.progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--button-bg);
-  animation: progress 2s ease-in-out infinite;
-  z-index: 100;
-}
-
-@keyframes progress {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-.progress-message {
-  position: fixed;
-  top: 8px;
-  right: 16px;
-  background: var(--badge-bg);
-  color: var(--badge-fg);
-  padding: 4px 12px;
-  border-radius: 3px;
-  font-size: 12px;
-  z-index: 100;
 }
