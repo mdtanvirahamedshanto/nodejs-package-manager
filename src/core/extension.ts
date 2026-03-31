@@ -82,7 +82,7 @@ export function activate(context: vscode.ExtensionContext): void {
   ].map(commandId => vscode.commands.registerCommand(commandId, showSidebarHandler));
 
   // Register sidebar webview provider
-  const sidebarProvider = new NpmDependenciesProvider();
+  const sidebarProvider = new NpmDependenciesProvider(context.extensionUri);
   const sidebarDisposable = vscode.window.registerWebviewViewProvider('nodejs-package-manager.sidebar', sidebarProvider, {
     webviewOptions: {
       retainContextWhenHidden: true,

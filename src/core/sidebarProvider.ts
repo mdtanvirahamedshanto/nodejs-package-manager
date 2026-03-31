@@ -17,6 +17,8 @@ function getExtensionVersion(): string {
 export class NpmDependenciesProvider implements vscode.WebviewViewProvider {
   public static readonly viewType = 'nodejs-package-manager.sidebar';
 
+  constructor(private readonly _extensionUri: vscode.Uri) {}
+
   private async openManagerFromSidebar(): Promise<void> {
     const availableCommands = new Set(await vscode.commands.getCommands(true));
     const candidates = [
@@ -69,13 +71,14 @@ export class NpmDependenciesProvider implements vscode.WebviewViewProvider {
     const language = getVSCodeLanguage();
     const t = getTranslations(language);
     const extensionVersion = getExtensionVersion();
+    const logoUri = _webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources', 'nodejs-package-manager.png'));
 
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'nonce-${nonce}';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'nonce-${nonce}'; img-src vscode-webview-resource: https: data:;">
   <title>Node.js Package Manager</title>
   <style>
     * {
@@ -96,102 +99,133 @@ export class NpmDependenciesProvider implements vscode.WebviewViewProvider {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
+      max-width: 400px;
+      margin: 0 auto;
     }
     
-    .logo {
-      width: 64px;
-      height: 64px;
-      background: linear-gradient(135deg, #CB3837 0%, #E53935 100%);
-      border-radius: 12px;
+    .logo-container {
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      margin-bottom: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 32px;
-      box-shadow: 0 4px 12px rgba(203, 56, 55, 0.3);
-      margin-bottom: 4px;
+      background: var(--vscode-editor-background);
+      border: 1px solid var(--vscode-widget-border);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     
+    .logo-container:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 12px 28px rgba(203, 56, 55, 0.25);
+    }
+    
+    .logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .header-group {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
     .title {
-      font-size: 15px;
-      font-weight: 600;
+      font-size: 16px;
+      font-weight: 700;
       margin: 0;
       color: var(--vscode-foreground);
-      text-align: center;
-      width: 100%;
+      letter-spacing: -0.3px;
     }
     
     .version {
       font-size: 11px;
-      color: var(--vscode-descriptionForeground);
-      background: var(--vscode-badge-background);
-      padding: 2px 8px;
-      border-radius: 10px;
-      margin-top: -8px;
+      font-weight: 600;
+      color: var(--vscode-textPreformat-foreground, var(--vscode-descriptionForeground));
+      background: var(--vscode-badge-background, rgba(128, 128, 128, 0.15));
+      padding: 3px 10px;
+      border-radius: 12px;
     }
     
     .description {
       font-size: 13px;
       color: var(--vscode-descriptionForeground);
-      margin: 8px 0;
       text-align: center;
       line-height: 1.5;
+      margin: 0;
+      padding: 0 8px;
     }
     
     .primary-btn {
       background: var(--vscode-button-background);
       color: var(--vscode-button-foreground);
       border: none;
-      padding: 10px 20px;
-      border-radius: 4px;
+      padding: 12px 24px;
+      border-radius: 6px;
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 8px;
-      transition: background 0.2s ease;
+      gap: 10px;
+      transition: all 0.2s ease;
       width: 100%;
       justify-content: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
     
     .primary-btn:hover {
       background: var(--vscode-button-hoverBackground);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
     
-    .primary-btn::before {
-      content: "▶";
-      font-size: 10px;
+    .primary-btn svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
     }
     
     .shortcut-hint {
       font-size: 12px;
       color: var(--vscode-descriptionForeground);
       text-align: center;
-      margin-top: 8px;
+      margin-top: 4px;
       padding: 8px;
-      border-radius: 4px;
+      border-radius: 6px;
       width: 100%;
-      line-height: 2.3;
+      line-height: 2.2;
+      background: var(--vscode-editor-background);
+      border: 1px dashed var(--vscode-widget-border);
     }
     
     .shortcut-hint kbd {
       background: var(--vscode-keybindingLabel-background);
+      color: var(--vscode-keybindingLabel-foreground);
       border: 1px solid var(--vscode-keybindingLabel-border);
       border-bottom-color: var(--vscode-keybindingLabel-bottomBorder);
-      border-radius: 3px;
-      padding: 2px 6px;
+      border-radius: 4px;
+      padding: 3px 6px;
       font-family: var(--vscode-editor-font-family);
       font-size: 11px;
+      font-weight: 600;
       box-shadow: inset 0 -1px 0 var(--vscode-keybindingLabel-bottomBorder);
+      margin: 0 2px;
     }
     
     .divider {
       width: 100%;
       height: 1px;
-      background: var(--vscode-widget-border);
-      margin: 16px 0 12px 0;
-      opacity: 0.5;
+      background: linear-gradient(to right, transparent, var(--vscode-widget-border), transparent);
+      margin: 8px 0;
     }
     
     .links-section {
@@ -199,78 +233,101 @@ export class NpmDependenciesProvider implements vscode.WebviewViewProvider {
       display: flex;
       flex-direction: column;
       gap: 8px;
+      background: var(--vscode-editor-background);
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--vscode-widget-border);
     }
     
     .links-title {
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
       color: var(--vscode-descriptionForeground);
-      letter-spacing: 0.5px;
+      letter-spacing: 0.8px;
+      margin-bottom: 4px;
+    }
+    
+    .link-group {
+      display: flex;
+      gap: 8px;
     }
     
     .link-btn {
-      background: transparent;
-      color: var(--vscode-textLink-foreground);
-      border: 1px solid var(--vscode-button-secondaryHoverBackground);
-      padding: 6px 12px;
-      border-radius: 4px;
+      flex: 1;
+      background: var(--vscode-button-secondaryBackground, rgba(128, 128, 128, 0.1));
+      color: var(--vscode-button-secondaryForeground, var(--vscode-foreground));
+      border: 1px solid transparent;
+      padding: 8px 12px;
+      border-radius: 6px;
       font-size: 12px;
+      font-weight: 500;
       cursor: pointer;
-      text-align: left;
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      gap: 6px;
       transition: all 0.2s ease;
     }
     
     .link-btn:hover {
-      background: var(--vscode-button-secondaryHoverBackground);
-      border-color: var(--vscode-textLink-activeForeground);
+      background: var(--vscode-button-secondaryHoverBackground, rgba(128, 128, 128, 0.2));
+      border-color: var(--vscode-widget-border);
     }
     
     .tips-section {
       width: 100%;
-      margin-top: 8px;
-      padding: 12px;
+      margin-top: 4px;
+      padding: 16px;
       background: var(--vscode-textBlockQuote-background);
-      border-left: 3px solid var(--vscode-textLink-foreground);
-      border-radius: 0 4px 4px 0;
+      border-left: 4px solid #CB3837;
+      border-radius: 0 8px 8px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
     
     .tips-title {
-      font-size: 11px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 700;
       color: var(--vscode-foreground);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     
     .tip-item {
       font-size: 12px;
       color: var(--vscode-descriptionForeground);
-      margin: 4px 0;
+      margin: 6px 0;
       display: flex;
       align-items: flex-start;
-      gap: 6px;
+      gap: 8px;
+      line-height: 1.4;
     }
     
-    .tip-item::before {
-      content: "💡";
-      font-size: 10px;
+    .tip-icon {
+      color: #F59E0B;
+      flex-shrink: 0;
     }
   </style>
 </head>
 <body>
   <div class="welcome-container">
-    <div class="logo">📦</div>
-    <p class="title">Node.js Package Manager</p>
-    <span class="version">v${extensionVersion}</span>
+    <div class="logo-container">
+      <img src="${logoUri}" alt="Node.js Package Manager" class="logo-img" />
+    </div>
+    
+    <div class="header-group">
+      <h1 class="title">Node.js Package Manager</h1>
+      <span class="version">v${extensionVersion}</span>
+    </div>
     
     <p class="description">
       ${t.sidebar.description}
     </p>
     
     <button class="primary-btn" id="openBtn">
+      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
       ${t.sidebar.openButton}
     </button>
     
@@ -282,18 +339,26 @@ export class NpmDependenciesProvider implements vscode.WebviewViewProvider {
     
     <div class="links-section">
       <span class="links-title">${t.sidebar.quickLinks}</span>
-      <button class="link-btn" id="docsBtn">
-        📖 ${t.sidebar.documentation}
-      </button>
-      <button class="link-btn" id="issuesBtn">
-        🐛 ${t.sidebar.reportIssue}
-      </button>
+      <div class="link-group">
+        <button class="link-btn" id="docsBtn">
+          📖 ${t.sidebar.documentation}
+        </button>
+        <button class="link-btn" id="issuesBtn">
+          🐛 ${t.sidebar.reportIssue}
+        </button>
+      </div>
     </div>
     
     <div class="tips-section">
-      <div class="tips-title">${t.sidebar.proTips}</div>
-      <div class="tip-item">${t.sidebar.tip1}</div>
-      <div class="tip-item">${t.sidebar.tip2}</div>
+      <div class="tips-title">💡 ${t.sidebar.proTips}</div>
+      <div class="tip-item">
+        <span class="tip-icon">✨</span>
+        <span>${t.sidebar.tip1}</span>
+      </div>
+      <div class="tip-item">
+        <span class="tip-icon">✨</span>
+        <span>${t.sidebar.tip2}</span>
+      </div>
     </div>
   </div>
   
