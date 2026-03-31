@@ -21,6 +21,7 @@ declare global {
     vscodeIcons?: {
       dark: string;
       light: string;
+      logo?: string;
     };
   }
 }
@@ -31,9 +32,13 @@ const useBrandLogo = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.vscodeIcons) {
-      // Check if VS Code is using a dark theme by checking the body background
-      const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setLogoUri(isDark ? window.vscodeIcons.dark : window.vscodeIcons.light);
+      // Prefer the high-quality PNG logo if available, otherwise fall back to theme SVG
+      if (window.vscodeIcons.logo) {
+        setLogoUri(window.vscodeIcons.logo);
+      } else {
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setLogoUri(isDark ? window.vscodeIcons.dark : window.vscodeIcons.light);
+      }
     }
   }, []);
 
@@ -55,6 +60,7 @@ function App() {
     installNewPackage,
     openExternal,
     uninstallPackage,
+    nukeNodeModules,
     isReady,
   } = useVsCodeApi();
 
@@ -181,6 +187,13 @@ function App() {
           setProgressMessage(null);
           break;
 
+        case 'NUKE_RESULT':
+          setProgressMessage(null);
+          if (!message.success) {
+            setError(message.message);
+          }
+          break;
+
         case 'ERROR':
           setError(message.message);
           setIsLoading(false);
@@ -259,6 +272,10 @@ function App() {
     [uninstallPackage]
   );
 
+  const handleNuke = useCallback(() => {
+    nukeNodeModules();
+  }, [nukeNodeModules]);
+
   if (isLoading) {
     return (
       <div className="loading-container">
@@ -328,6 +345,13 @@ function App() {
                 <i className="codicon codicon-list-flat" /> {t.header.showAllPackages}
               </>
             )}
+          </button>
+          <button
+            className="refresh-btn nuke-btn"
+            onClick={handleNuke}
+            title="Delete node_modules and run fresh install"
+          >
+            <i className="codicon codicon-flame" />
           </button>
           <button
             className="refresh-btn"

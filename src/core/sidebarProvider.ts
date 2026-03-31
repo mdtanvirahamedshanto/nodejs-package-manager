@@ -81,6 +81,14 @@ export class NpmDependenciesProvider implements vscode.WebviewViewProvider {
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'nonce-${nonce}'; img-src vscode-webview-resource: https: data:;">
   <title>Node.js Package Manager</title>
   <style>
+    :root {
+      --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-base: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+      --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.16);
+    }
+    
     * {
       box-sizing: border-box;
     }
@@ -89,8 +97,8 @@ export class NpmDependenciesProvider implements vscode.WebviewViewProvider {
       font-family: var(--vscode-font-family);
       font-size: var(--vscode-font-size);
       color: var(--vscode-foreground);
-      background: var(--vscode-sideBar-background);
-      padding: 20px 16px;
+      background: linear-gradient(135deg, var(--vscode-sideBar-background), color-mix(in srgb, var(--vscode-sideBar-background) 98%, var(--vscode-editor-background) 2%));
+      padding: 24px 16px;
       margin: 0;
       line-height: 1.5;
     }
@@ -100,34 +108,56 @@ export class NpmDependenciesProvider implements vscode.WebviewViewProvider {
       flex-direction: column;
       align-items: center;
       gap: 16px;
-      max-width: 400px;
+      max-width: 100%;
       margin: 0 auto;
+      padding: 0;
     }
     
     .logo-container {
-      width: 72px;
-      height: 72px;
-      border-radius: 16px;
+      width: clamp(64px, 20vw, 100px);
+      height: clamp(64px, 20vw, 100px);
+      border-radius: clamp(12px, 3vw, 16px);
       overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      margin-bottom: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--vscode-editor-background);
-      border: 1px solid var(--vscode-widget-border);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--vscode-editor-background) 85%, var(--vscode-focusBorder) 15%), color-mix(in srgb, var(--vscode-editor-background) 92%, var(--vscode-focusBorder) 8%));
+      border: 1.5px solid color-mix(in srgb, var(--vscode-widget-border) 70%, transparent);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: all var(--transition-base);
+      position: relative;
+      padding: clamp(4px, 2vw, 8px);
+      flex-shrink: 0;
+    }
+    
+    .logo-container::before {
+      content: '';
+      position: absolute;
+      inset: -50%;
+      background: radial-gradient(circle, color-mix(in srgb, var(--vscode-focusBorder) 25%, transparent), transparent);
+      opacity: 0;
+      transition: opacity var(--transition-base);
+      pointer-events: none;
     }
     
     .logo-container:hover {
-      transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 12px 28px rgba(203, 56, 55, 0.25);
+      transform: translateY(-6px) scale(1.12);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      border-color: color-mix(in srgb, var(--vscode-focusBorder) 80%, transparent);
+    }
+    
+    .logo-container:hover::before {
+      opacity: 1;
     }
     
     .logo-img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      object-position: center;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1));
     }
     
     .header-group {
@@ -135,117 +165,162 @@ export class NpmDependenciesProvider implements vscode.WebviewViewProvider {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: 10px;
+      animation: fadeInUp 0.4s ease-out;
     }
 
     .title {
-      font-size: 16px;
-      font-weight: 700;
+      font-size: clamp(13px, 4vw, 17px);
+      font-weight: 800;
       margin: 0;
       color: var(--vscode-foreground);
       letter-spacing: -0.3px;
+      background: linear-gradient(135deg, var(--vscode-foreground), color-mix(in srgb, var(--vscode-foreground) 85%, transparent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      word-break: break-word;
+      line-height: 1.2;
     }
     
     .version {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--vscode-textPreformat-foreground, var(--vscode-descriptionForeground));
-      background: var(--vscode-badge-background, rgba(128, 128, 128, 0.15));
-      padding: 3px 10px;
-      border-radius: 12px;
+      font-size: clamp(9px, 2.5vw, 11px);
+      font-weight: 700;
+      color: var(--vscode-focusBorder);
+      background: linear-gradient(135deg, color-mix(in srgb, var(--vscode-focusBorder) 15%, transparent), color-mix(in srgb, var(--vscode-focusBorder) 10%, transparent));
+      padding: clamp(3px, 1vw, 4px) clamp(8px, 2vw, 12px);
+      border-radius: clamp(5px, 1.5vw, 6px);
+      border: 1px solid color-mix(in srgb, var(--vscode-focusBorder) 25%, transparent);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      box-shadow: 0 2px 4px color-mix(in srgb, var(--vscode-focusBorder) 10%, transparent);
+      white-space: nowrap;
     }
     
     .description {
-      font-size: 13px;
+      font-size: clamp(11px, 3vw, 13px);
       color: var(--vscode-descriptionForeground);
       text-align: center;
       line-height: 1.5;
       margin: 0;
-      padding: 0 8px;
+      padding: 0 clamp(2px, 2vw, 4px);
+      opacity: 0.95;
+      word-break: break-word;
     }
     
     .primary-btn {
-      background: var(--vscode-button-background);
+      background: linear-gradient(135deg, var(--vscode-button-background), color-mix(in srgb, var(--vscode-button-background) 88%, var(--vscode-focusBorder) 12%));
       color: var(--vscode-button-foreground);
-      border: none;
-      padding: 12px 24px;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 600;
+      border: 1px solid color-mix(in srgb, var(--vscode-button-foreground) 15%, transparent);
+      padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px);
+      border-radius: clamp(6px, 1.5vw, 8px);
+      font-size: clamp(11px, 3vw, 13px);
+      font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 10px;
-      transition: all 0.2s ease;
+      gap: clamp(6px, 2vw, 10px);
+      transition: all var(--transition-base);
       width: 100%;
       justify-content: center;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      box-shadow: var(--shadow-md);
+      letter-spacing: 0.3px;
+      position: relative;
+      overflow: hidden;
+      min-height: 32px;
+      flex-wrap: wrap;
+    }
+    
+    .primary-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, color-mix(in srgb, white 20%, transparent), transparent);
+      pointer-events: none;
     }
     
     .primary-btn:hover {
-      background: var(--vscode-button-hoverBackground);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      background: linear-gradient(135deg, var(--vscode-button-hoverBackground), color-mix(in srgb, var(--vscode-button-hoverBackground) 92%, var(--vscode-focusBorder) 8%));
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .primary-btn:active {
+      transform: translateY(0);
+      box-shadow: var(--shadow-sm);
     }
     
     .primary-btn svg {
-      width: 14px;
-      height: 14px;
+      width: clamp(12px, 3vw, 14px);
+      height: clamp(12px, 3vw, 14px);
       fill: currentColor;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
     }
     
     .shortcut-hint {
-      font-size: 12px;
+      font-size: clamp(9px, 2.5vw, 12px);
       color: var(--vscode-descriptionForeground);
       text-align: center;
-      margin-top: 4px;
-      padding: 8px;
-      border-radius: 6px;
+      padding: clamp(6px, 2vw, 10px) clamp(8px, 2vw, 12px);
+      border-radius: clamp(6px, 1.5vw, 8px);
       width: 100%;
-      line-height: 2.2;
-      background: var(--vscode-editor-background);
-      border: 1px dashed var(--vscode-widget-border);
+      line-height: 1.6;
+      background: color-mix(in srgb, var(--vscode-editor-background) 96%, var(--vscode-focusBorder) 4%);
+      border: 1px solid color-mix(in srgb, var(--vscode-widget-border) 60%, transparent);
+      transition: all var(--transition-base);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+      word-break: break-word;
+    }
+    
+    .shortcut-hint:hover {
+      background: color-mix(in srgb, var(--vscode-editor-background) 92%, var(--vscode-focusBorder) 8%);
+      border-color: color-mix(in srgb, var(--vscode-widget-border) 80%, transparent);
     }
     
     .shortcut-hint kbd {
-      background: var(--vscode-keybindingLabel-background);
+      background: linear-gradient(135deg, var(--vscode-keybindingLabel-background), color-mix(in srgb, var(--vscode-keybindingLabel-background) 92%, var(--vscode-focusBorder) 8%));
       color: var(--vscode-keybindingLabel-foreground);
-      border: 1px solid var(--vscode-keybindingLabel-border);
+      border: 1px solid color-mix(in srgb, var(--vscode-keybindingLabel-border) 80%, transparent);
       border-bottom-color: var(--vscode-keybindingLabel-bottomBorder);
-      border-radius: 4px;
-      padding: 3px 6px;
+      border-radius: 3px;
+      padding: 2px clamp(3px, 1vw, 7px);
       font-family: var(--vscode-editor-font-family);
-      font-size: 11px;
-      font-weight: 600;
-      box-shadow: inset 0 -1px 0 var(--vscode-keybindingLabel-bottomBorder);
-      margin: 0 2px;
+      font-size: clamp(8px, 2vw, 10px);
+      font-weight: 700;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+      margin: 0 clamp(1px, 1vw, 3px);
+      display: inline-block;
     }
     
     .divider {
       width: 100%;
       height: 1px;
-      background: linear-gradient(to right, transparent, var(--vscode-widget-border), transparent);
-      margin: 8px 0;
+      background: linear-gradient(to right, transparent, color-mix(in srgb, var(--vscode-widget-border) 50%, transparent), transparent);
+      margin: 4px 0;
     }
     
     .links-section {
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      background: var(--vscode-editor-background);
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid var(--vscode-widget-border);
+      gap: clamp(6px, 2vw, 10px);
+      background: color-mix(in srgb, var(--vscode-editor-background) 96%, var(--vscode-focusBorder) 4%);
+      padding: clamp(10px, 3vw, 14px);
+      border-radius: clamp(6px, 1.5vw, 8px);
+      border: 1px solid color-mix(in srgb, var(--vscode-widget-border) 60%, transparent);
+      box-shadow: var(--shadow-sm);
     }
     
     .links-title {
-      font-size: 11px;
-      font-weight: 700;
+      font-size: clamp(8px, 2vw, 10px);
+      font-weight: 800;
       text-transform: uppercase;
       color: var(--vscode-descriptionForeground);
-      letter-spacing: 0.8px;
-      margin-bottom: 4px;
+      letter-spacing: 0.6px;
+      margin-bottom: clamp(1px, 1vw, 2px);
+      opacity: 0.85;
     }
     
     .link-group {
@@ -255,59 +330,160 @@ export class NpmDependenciesProvider implements vscode.WebviewViewProvider {
     
     .link-btn {
       flex: 1;
-      background: var(--vscode-button-secondaryBackground, rgba(128, 128, 128, 0.1));
-      color: var(--vscode-button-secondaryForeground, var(--vscode-foreground));
-      border: 1px solid transparent;
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 500;
+      background: color-mix(in srgb, var(--vscode-button-secondaryBackground) 98%, var(--vscode-focusBorder) 2%);
+      color: var(--vscode-button-secondaryForeground);
+      border: 1px solid color-mix(in srgb, var(--vscode-button-secondaryForeground) 15%, transparent);
+      padding: clamp(6px, 1.5vw, 8px) clamp(8px, 2vw, 12px);
+      border-radius: clamp(5px, 1.2vw, 6px);
+      font-size: clamp(9px, 2.5vw, 11px);
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      transition: all 0.2s ease;
+      gap: clamp(3px, 1vw, 5px);
+      transition: all var(--transition-base);
+      box-shadow: var(--shadow-sm);
+      min-height: 28px;
     }
     
     .link-btn:hover {
-      background: var(--vscode-button-secondaryHoverBackground, rgba(128, 128, 128, 0.2));
-      border-color: var(--vscode-widget-border);
+      background: var(--vscode-button-secondaryHoverBackground);
+      border-color: color-mix(in srgb, var(--vscode-button-secondaryForeground) 40%, transparent);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .link-btn:active {
+      transform: translateY(0);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
     }
     
     .tips-section {
       width: 100%;
-      margin-top: 4px;
-      padding: 16px;
-      background: var(--vscode-textBlockQuote-background);
-      border-left: 4px solid #CB3837;
-      border-radius: 0 8px 8px 0;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: clamp(10px, 3vw, 14px);
+      background: linear-gradient(135deg, color-mix(in srgb, var(--vscode-editor-background) 92%, var(--vscode-errorForeground) 8%), color-mix(in srgb, var(--vscode-editor-background) 96%, var(--vscode-errorForeground) 4%));
+      border-left: clamp(2px, 0.5vw, 3px) solid #CB3837;
+      border-radius: clamp(6px, 1.5vw, 8px);
+      box-shadow: 0 3px 8px color-mix(in srgb, #CB3837 10%, transparent);
+      border: 1px solid color-mix(in srgb, #CB3837 20%, transparent);
     }
     
     .tips-title {
-      font-size: 12px;
-      font-weight: 700;
+      font-size: clamp(10px, 2.5vw, 12px);
+      font-weight: 800;
       color: var(--vscode-foreground);
-      margin-bottom: 8px;
+      margin-bottom: clamp(6px, 2vw, 10px);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: clamp(4px, 1.5vw, 6px);
+      letter-spacing: 0.3px;
     }
     
     .tip-item {
-      font-size: 12px;
+      font-size: clamp(10px, 2.5vw, 12px);
       color: var(--vscode-descriptionForeground);
-      margin: 6px 0;
+      margin: clamp(4px, 1.5vw, 6px) 0;
       display: flex;
       align-items: flex-start;
-      gap: 8px;
+      gap: clamp(6px, 2vw, 8px);
       line-height: 1.4;
+      animation: slideIn 0.4s ease-out backwards;
+      word-break: break-word;
     }
+    
+    .tip-item:nth-child(2) { animation-delay: 0.1s; }
+    .tip-item:nth-child(3) { animation-delay: 0.2s; }
     
     .tip-icon {
       color: #F59E0B;
       flex-shrink: 0;
+      font-size: clamp(11px, 2.5vw, 13px);
+      min-width: 16px;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    /* Responsive Design for Extra Small Screens (< 240px) */
+    @media (max-width: 240px) {
+      body {
+        padding: 12px 8px;
+      }
+      
+      .welcome-container {
+        gap: 8px;
+      }
+      
+      .header-group {
+        gap: 4px;
+      }
+      
+      .version {
+        padding: 2px 8px;
+        font-size: 9px;
+      }
+      
+      .primary-btn svg {
+        display: none;
+      }
+      
+      .link-group {
+        gap: 4px;
+      }
+    }
+    
+    /* Responsive Design for Small Screens (240px - 300px) */
+    @media (max-width: 300px) {
+      .divider {
+        margin: 2px 0;
+      }
+      
+      .link-group {
+        flex-direction: column;
+      }
+      
+      .link-btn {
+        width: 100%;
+      }
+    }
+    
+    /* Responsive Design for Large Screens (> 400px) */
+    @media (min-width: 400px) {
+      body {
+        padding: 28px 18px;
+      }
+      
+      .welcome-container {
+        gap: 20px;
+      }
+      
+      .logo-container {
+        padding: 12px;
+      }
+      
+      .header-group {
+        gap: 12px;
+      }
     }
   </style>
 </head>

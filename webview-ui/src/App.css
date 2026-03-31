@@ -431,6 +431,27 @@ body {
   }
 }
 
+/* Nuke button - danger/warning color */
+.nuke-btn {
+  background: color-mix(in srgb, var(--vscode-errorForeground) 12%, var(--vscode-button-secondaryBackground) 88%) !important;
+  color: var(--vscode-errorForeground) !important;
+  border-color: color-mix(in srgb, var(--vscode-errorForeground) 30%, transparent) !important;
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.nuke-btn:hover {
+  background: color-mix(in srgb, var(--vscode-errorForeground) 22%, var(--vscode-button-secondaryHoverBackground) 78%) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--vscode-errorForeground) 25%, transparent), var(--shadow-md) !important;
+  transform: translateY(-1px) scale(1.05) !important;
+}
+
+.nuke-btn:active {
+  transform: translateY(0) scale(1) !important;
+}
+
 /* Codicon alignment */
 .codicon {
   vertical-align: middle;

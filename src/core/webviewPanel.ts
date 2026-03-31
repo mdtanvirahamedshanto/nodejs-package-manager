@@ -92,7 +92,10 @@ export class NpmGuiManagerPanel {
       {
         enableScripts: true,
         retainContextWhenHidden: true,
-        localResourceRoots: [vscode.Uri.joinPath(extensionUri, 'out', 'webview')],
+        localResourceRoots: [
+          vscode.Uri.joinPath(extensionUri, 'out', 'webview'),
+          vscode.Uri.joinPath(extensionUri, 'resources'),
+        ],
       }
     );
 
@@ -357,6 +360,10 @@ export class NpmGuiManagerPanel {
           this._currentPackageManager
         );
         break;
+
+      case 'NUKE_NODE_MODULES':
+        await this._nukeNodeModules();
+        break;
     }
   }
 
@@ -573,6 +580,64 @@ export class NpmGuiManagerPanel {
     // Save cache after batch processing
     if (this._cache) {
       await this._cache.save();
+    }
+  }
+
+  /**
+   * Nuke node_modules: delete node_modules and lockfiles, then reinstall
+   */
+  private async _nukeNodeModules(): Promise<void> {
+    const confirmMsg = `This will delete node_modules (and optionally lock files) in "${this._currentProjectPath}" and run a fresh install. Continue?`;
+    const choice = await vscode.window.showWarningMessage(
+      confirmMsg,
+      { modal: true },
+      'Delete & Reinstall',
+      'Delete Only'
+    );
+
+    if (!choice) {
+      return;
+    }
+
+    this._sendMessage({ type: 'PROGRESS', message: 'Deleting node_modules...' });
+
+    try {
+      const nodeModulesPath = path.join(this._currentProjectPath, 'node_modules');
+      await fs.promises.rm(nodeModulesPath, { recursive: true, force: true });
+
+      if (choice === 'Delete & Reinstall') {
+        this._sendMessage({ type: 'PROGRESS', message: `Running ${this._currentPackageManager} install...` });
+
+        const installCmd = this._currentPackageManager === 'yarn'
+          ? 'yarn'
+          : this._currentPackageManager === 'pnpm'
+            ? 'pnpm install'
+            : this._currentPackageManager === 'bun'
+              ? 'bun install'
+              : 'npm install';
+
+        const terminal = vscode.window.createTerminal({
+          name: 'npm: Fresh Install',
+          cwd: this._currentProjectPath,
+        });
+        terminal.sendText(installCmd);
+        terminal.show();
+
+        this._sendMessage({ type: 'NUKE_RESULT', success: true, message: `node_modules deleted. Running ${this._currentPackageManager} install in terminal.` });
+      } else {
+        this._sendMessage({ type: 'NUKE_RESULT', success: true, message: 'node_modules deleted successfully.' });
+      }
+
+      this._sendMessage({ type: 'PROGRESS', message: null as any });
+      await this._loadDependencies();
+    } catch (error) {
+      this._sendMessage({ type: 'PROGRESS', message: null as any });
+      this._sendMessage({
+        type: 'NUKE_RESULT',
+        success: false,
+        message: `Failed to delete node_modules: ${error instanceof Error ? error.message : String(error)}`,
+      });
+      vscode.window.showErrorMessage(`Nuke node_modules failed: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 

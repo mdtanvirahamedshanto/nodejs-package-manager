@@ -21,6 +21,10 @@ export function getHtmlForWebview(webview: vscode.Webview, extensionUri: vscode.
   const iconDarkUri = webview.asWebviewUri(iconDarkPath);
   const iconLightUri = webview.asWebviewUri(iconLightPath);
 
+  // Expose main brand logo (high quality PNG for the webview header)
+  const logoPngPath = vscode.Uri.joinPath(extensionUri, 'resources', 'nodejs-package-manager.png');
+  const logoPngUri = webview.asWebviewUri(logoPngPath);
+
   const nonce = getNonce();
 
   return `<!DOCTYPE html>
@@ -38,7 +42,8 @@ export function getHtmlForWebview(webview: vscode.Webview, extensionUri: vscode.
     window.initialLanguage = '${language}';
     window.vscodeIcons = {
       dark: '${iconDarkUri}',
-      light: '${iconLightUri}'
+      light: '${iconLightUri}',
+      logo: '${logoPngUri}'
     };
   </script>
   <script nonce="${nonce}" src="${scriptUri}?v=${cacheBuster}"></script>

@@ -112,6 +112,10 @@ export function useVsCodeApi() {
     [postMessage]
   );
 
+  const nukeNodeModules = useCallback(() => {
+    postMessage({ type: 'NUKE_NODE_MODULES' });
+  }, [postMessage]);
+
   return {
     get vscode() {
       return vscodeRef.current;
@@ -131,6 +135,7 @@ export function useVsCodeApi() {
     runAudit,
     openExternal,
     uninstallPackage,
+    nukeNodeModules,
   };
 }
 

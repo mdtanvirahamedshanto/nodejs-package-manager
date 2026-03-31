@@ -89,7 +89,8 @@ export type WebviewToHostMessage =
   | { type: 'INSTALL_NEW_PACKAGE'; packageName: string; version: string; isDev: boolean }
   | { type: 'GET_AUDIT' }
   | { type: 'OPEN_EXTERNAL'; url: string }
-  | { type: 'UNINSTALL_PACKAGE'; packageName: string };
+  | { type: 'UNINSTALL_PACKAGE'; packageName: string }
+  | { type: 'NUKE_NODE_MODULES' };
 
 // Messages from Extension Host to Webview
 export type HostToWebviewMessage =
@@ -125,4 +126,5 @@ export type HostToWebviewMessage =
   | { type: 'COLUMN_CONFIG'; config: ColumnConfig }
   | { type: 'INSTALL_RESULT'; packageName: string; success: boolean; message: string }
   | { type: 'ERROR'; message: string }
-  | { type: 'PROGRESS'; message: string };
+  | { type: 'PROGRESS'; message: string }
+  | { type: 'NUKE_RESULT'; success: boolean; message: string };
