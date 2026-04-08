@@ -319,8 +319,11 @@
 }
 
 .dependency-table td {
-  padding: 10px 12px;
-  border-bottom: 1px solid color-mix(in srgb, var(--border-color) 40%, transparent);
+  padding: 9px 12px;
+  border-bottom: 1px solid color-mix(in srgb, var(--border-color) 25%, transparent);
+  background: transparent;
+  color: var(--table-fg);
+  vertical-align: middle;
 }
 
 .dependency-table tbody tr {
@@ -331,7 +334,15 @@
 }
 
 .dependency-table tbody tr:hover {
-  background: color-mix(in srgb, var(--row-hover-bg) 50%, transparent);
+  background: var(--vscode-list-hoverBackground);
+}
+
+.dependency-table tbody tr:hover td {
+  color: var(--vscode-list-hoverForeground, var(--table-fg));
+}
+
+.dependency-table tbody tr:hover .package-link {
+  color: var(--vscode-textLink-activeForeground);
 }
 
 .dependency-table tbody tr.has-update {
@@ -339,7 +350,7 @@
 }
 
 .dependency-table tbody tr.has-update:hover {
-  background: color-mix(in srgb, var(--row-hover-bg) 50%, transparent);
+  background: var(--vscode-list-hoverBackground);
 }
 
 /* Column widths */
@@ -350,7 +361,7 @@
 
 .checkbox-cell {
   text-align: center;
-  padding: 10px 6px;
+  padding: 9px 6px;
 }
 
 .checkbox-cell input[type="checkbox"] {
@@ -359,9 +370,7 @@
   transition: transform var(--transition-fast);
 }
 
-.checkbox-cell input[type="checkbox"]:hover {
-  transform: scale(1.1);
-}
+
 
 .checkbox-cell input[type="checkbox"]:disabled {
   cursor: not-allowed;
@@ -457,13 +466,10 @@
 .action-cell {
   width: 150px;
   text-align: center !important;
-  padding: 6px 8px;
+  padding: 9px 8px;
 }
 
-/* Package name cell */
-.package-name {
-  padding: 10px 12px;
-}
+
 
 .package-info {
   display: flex;
@@ -497,9 +503,7 @@
     transform var(--transition-fast);
 }
 
-.status-badge:hover {
-  transform: scale(1.05);
-}
+
 
 .status-danger {
   background: color-mix(in srgb, var(--error-fg) 25%, transparent);

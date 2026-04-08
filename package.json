@@ -2,7 +2,7 @@
   "name": "nodejs-package-manager",
   "displayName": "Node.js Package Manager",
   "description": "A Visual Studio Code extension for managing Node.js dependencies with updates, security audits, and bulk operations.",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "publisher": "mdtanvirahamedshanto",
   "author": {
     "name": "Md Tanvir Ahamed Shanto",

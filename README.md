@@ -16,9 +16,7 @@ Node.js Package Manager is a VS Code extension that gives you a visual, reliable
 - Faster upgrades with individual and bulk update actions
 - Built-in safety helpers like audit checks and changelog links
 
-## Preview
 
-![Node.js Package Manager Preview](screenshots/preview.gif)
 
 ## Features
 
